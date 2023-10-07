@@ -1,4 +1,5 @@
 import { Button, Form, Input } from 'antd';
+import Link from 'antd/es/typography/Link';
 
 type FieldType = {
   email?: string;
@@ -48,7 +49,7 @@ const AdminLogin = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" block>
+              <Button type="primary" htmlType="submit" block className="mt-2">
                 Submit
               </Button>
             </Form.Item>
@@ -56,12 +57,9 @@ const AdminLogin = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Start a 14 day free trial
-            </a>
+            <Link href="register" className="font-semibold leading-6">
+              Sign up here
+            </Link>
           </p>
         </div>
       </div>
