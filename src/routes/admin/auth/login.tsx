@@ -1,5 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import Link from 'antd/es/typography/Link';
+import Title from 'antd/es/typography/Title';
 
 type FieldType = {
   email?: string;
@@ -16,12 +17,12 @@ const AdminLogin = () => {
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <Title level={2} className="mt-10 text-center">
             Sign in to your account
-          </h2>
+          </Title>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Form
             initialValues={{ remember: true }}
             onFinish={() => {}}
@@ -50,7 +51,7 @@ const AdminLogin = () => {
 
             <Form.Item>
               <Button type="primary" htmlType="submit" block className="mt-2">
-                Submit
+                Sign in
               </Button>
             </Form.Item>
           </Form>
