@@ -5,7 +5,8 @@ import Register from '../routes/auth/register';
 import NotFound from '../routes/not-found';
 import AdminLogin from '../routes/admin/auth/login';
 import AdminRegister from '../routes/admin/auth/register';
-import AdminAccountSetup from '../routes/admin/account/setup';
+import AdminDashboardIndex from '../routes/admin/[companyId]';
+import AdminDashboardLayout from '../routes/admin/[companyId]/layout';
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,12 @@ const router = createBrowserRouter([
         element: <AdminRegister />,
       },
       {
+        element: <AdminDashboardLayout />,
         children: [
-          { path: 'admin/account/setup', element: <AdminAccountSetup /> },
+          {
+            path: 'admin/:companyId/',
+            element: <AdminDashboardIndex />,
+          },
         ],
       },
     ],
