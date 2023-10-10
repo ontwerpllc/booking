@@ -1,4 +1,13 @@
-import { Select, Menu, Divider, Button, MenuProps, Typography } from 'antd';
+import {
+  Select,
+  Menu,
+  Divider,
+  Button,
+  MenuProps,
+  Typography,
+  Skeleton,
+  SelectProps,
+} from 'antd';
 import BrandIcon from '../../../../components/brand-icon';
 
 const { Text } = Typography;
@@ -6,15 +15,18 @@ const { Text } = Typography;
 const { VITE_APP_VERSION, VITE_BRAND_NAME } = import.meta.env;
 
 type MenuItem = Required<MenuProps>['items'][number];
+type MenuSelectEventHandler = Required<MenuProps>['onSelect'];
+type SelectEventHandler = Required<SelectProps>['onSelect'];
 
 type Props = {
   menuItems: MenuItem[];
-  onMenuSelect: (item: MenuItem) => void;
-  onBusinessSelect: (companyId: string) => void;
+  onMenuSelect: MenuSelectEventHandler;
+  onBusinessSelect: SelectEventHandler;
+  isLoading?: boolean;
 };
 
 const NavigationBar = (props: Props) => {
-  const { menuItems, onMenuSelect, onBusinessSelect } = props;
+  const { menuItems, onMenuSelect, onBusinessSelect, isLoading } = props;
 
   return (
     <>
@@ -30,6 +42,7 @@ const NavigationBar = (props: Props) => {
           placeholder="Select a business"
           onSelect={onBusinessSelect}
           options={[]}
+          loading={isLoading}
         />
       </div>
       <Menu
@@ -44,9 +57,13 @@ const NavigationBar = (props: Props) => {
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
             <Text>Current Plan</Text>
-            <Text type="secondary">$10/mo</Text>
+            {isLoading ? (
+              <Skeleton paragraph={false} active />
+            ) : (
+              <Text type="secondary">$10/mo</Text>
+            )}
           </div>
-          <Button>Modify</Button>
+          <Button disabled={isLoading}>Modify</Button>
         </div>
         <Divider />
         <div>
