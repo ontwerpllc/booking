@@ -12,22 +12,24 @@ import BarsIcon from '../../../../icons/bars';
 const { useToken } = theme;
 
 type MenuItem = Required<MenuProps>['items'][number];
-type MenuClickEventHandler = Required<MenuProps>['onClick'];
 type ButtonClickEventHandler = Required<ButtonProps>['onClick'];
 
 type Props = {
   profileItems: MenuItem[];
   onSidebarOpen: ButtonClickEventHandler;
-  onProfileItemClick: MenuClickEventHandler;
 };
 
 const HeaderBar = (props: Props) => {
-  const { onSidebarOpen, profileItems, onProfileItemClick } = props;
+  const { onSidebarOpen, profileItems } = props;
   const { token } = useToken();
+
   return (
     <div
       className="flex h-16 items-center gap-x-4 border-b px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-4 lg:shadow-none"
-      style={{ borderColor: token.colorBorderSecondary }}
+      style={{
+        borderColor: token.colorBorderSecondary,
+        backgroundColor: token.colorBgBase,
+      }}
     >
       <Button
         icon={<BarsIcon />}
@@ -39,10 +41,7 @@ const HeaderBar = (props: Props) => {
 
       <div className="ml-auto flex gap-x-4">
         <div className="flex items-center gap-x-4">
-          <Dropdown
-            menu={{ items: profileItems, onClick: onProfileItemClick }}
-            arrow
-          >
+          <Dropdown menu={{ items: profileItems }} arrow>
             <Avatar className="select-none cursor-pointer">U</Avatar>
           </Dropdown>
         </div>

@@ -30,53 +30,7 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem(
-    'Shortcuts',
-    null,
-    null,
-    [
-      getItem('Bookings', 'bookings', <BookingIcon />),
-      getItem('Analytics', 'analytics', <AnalyticsIcon />),
-      getItem('Customers', 'customers', <UsersIcon />),
-    ],
-    'group',
-  ),
-  { type: 'divider' },
-  getItem(
-    'Extra',
-    null,
-    null,
-    [
-      getItem('Settings', null, <SettingsIcon />, [
-        getItem('General', 'settings/general'),
-        getItem('Time Slots', 'settings/time-slots'),
-      ]),
-    ],
-    'group',
-  ),
-];
-
-const profileItems: MenuProps['items'] = [
-  {
-    label: '1st menu item',
-    key: '1',
-  },
-  {
-    label: '2nd menu item',
-    key: '2',
-  },
-  {
-    label: '3rd menu item',
-    key: '3',
-  },
-  {
-    label: '4rd menu item',
-    key: '4',
-
-    danger: true,
-  },
-];
+const basePath = '/admin/:companyId';
 
 const AdminDashboardLayout = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -101,11 +55,53 @@ const AdminDashboardLayout = () => {
     setSidebarOpen(false);
   };
 
-  const onProfileItemClick = (item: MenuItem) => {
-    console.log(item);
-  };
-
+  // TODO: implement loading state
   const isLoading = false;
+
+  const profileItems = [
+    {
+      label: 'Your Profile',
+      key: 'profile',
+      onClick: () => {
+        // TODO: implement
+      },
+    },
+    {
+      label: 'Sign out',
+      key: 'sign-out',
+      danger: true,
+      onClick: () => {
+        // TODO: implement
+      },
+    },
+  ] satisfies MenuProps['items'];
+
+  const navigationItems = [
+    getItem(
+      'Shortcuts',
+      null,
+      null,
+      [
+        getItem('Bookings', './', <BookingIcon />),
+        getItem('Analytics', 'analytics', <AnalyticsIcon />),
+        getItem('Customers', 'customers', <UsersIcon />),
+      ],
+      'group',
+    ),
+    { type: 'divider' },
+    getItem(
+      'Extra',
+      null,
+      null,
+      [
+        getItem('Settings', 'settings', <SettingsIcon />, [
+          getItem('General', 'settings/general'),
+          getItem('Time Slots', 'settings/time-slots'),
+        ]),
+      ],
+      'group',
+    ),
+  ] satisfies MenuItem[];
 
   return (
     <>
@@ -116,7 +112,8 @@ const AdminDashboardLayout = () => {
             style={{ borderColor: token.colorBorderSecondary }}
           >
             <NavigationBar
-              menuItems={items}
+              basePath={basePath}
+              menuItems={navigationItems}
               onMenuSelect={onMenuSelect}
               onBusinessSelect={onBusinessSelect}
               isLoading={isLoading}
@@ -128,7 +125,6 @@ const AdminDashboardLayout = () => {
           <div className="sticky top-0 z-40 lg:mx-auto">
             <HeaderBar
               onSidebarOpen={onSidebarOpen}
-              onProfileItemClick={onProfileItemClick}
               profileItems={profileItems}
             />
           </div>
@@ -147,7 +143,8 @@ const AdminDashboardLayout = () => {
         open={isSidebarOpen}
       >
         <NavigationBar
-          menuItems={items}
+          basePath={basePath}
+          menuItems={navigationItems}
           onMenuSelect={onMenuSelect}
           onBusinessSelect={onBusinessSelect}
           isLoading={isLoading}
