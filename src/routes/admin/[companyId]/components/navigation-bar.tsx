@@ -25,8 +25,10 @@ type SelectEventHandler = Required<SelectProps>['onSelect'];
 
 type Props = {
   menuItems: MenuItem[];
+  businesses: SelectProps['options'];
   onMenuSelect: MenuSelectEventHandler;
   onBusinessSelect: SelectEventHandler;
+  onClosableAction?: () => void;
   isLoading?: boolean;
   basePath: string;
 };
@@ -40,8 +42,15 @@ const getSelectedParentKeys = (path: string) => {
 };
 
 const NavigationBar = (props: Props) => {
-  const { menuItems, onMenuSelect, onBusinessSelect, isLoading, basePath } =
-    props;
+  const {
+    menuItems,
+    onMenuSelect,
+    onBusinessSelect,
+    onClosableAction,
+    isLoading,
+    basePath,
+    businesses,
+  } = props;
   const [isPlanModalOpen, setIsPlanModalOpen] = useState(false);
   const { token } = useToken();
   const location = useLocation();
@@ -50,6 +59,15 @@ const NavigationBar = (props: Props) => {
 
   const onPlanModalOpen = () => {
     setIsPlanModalOpen(true);
+  };
+
+  const onMenuSelectWrapper: MenuSelectEventHandler = (info) => {
+    onMenuSelect(info);
+    onClosableAction?.();
+  };
+
+  const onBusinessSelectWrapper: SelectEventHandler = (value, option) => {
+    onBusinessSelect(value, option);
   };
 
   return (
@@ -68,8 +86,8 @@ const NavigationBar = (props: Props) => {
           <Select
             className="w-full"
             placeholder="Select a business"
-            onSelect={onBusinessSelect}
-            options={[]}
+            onSelect={onBusinessSelectWrapper}
+            options={businesses}
             loading={isLoading}
           />
         </div>
@@ -79,7 +97,7 @@ const NavigationBar = (props: Props) => {
           items={menuItems}
           defaultSelectedKeys={[selectedPathKey]}
           defaultOpenKeys={getSelectedParentKeys(selectedPathKey)}
-          onSelect={onMenuSelect}
+          onSelect={onMenuSelectWrapper}
         />
       </div>
       <div className="mt-auto mx-4">

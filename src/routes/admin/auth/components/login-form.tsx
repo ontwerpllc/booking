@@ -1,4 +1,6 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, FormInstance, FormProps, Input } from 'antd';
+
+type SubmitEventHandler = Required<FormProps>['onFinish'];
 
 type FieldType = {
   email?: string;
@@ -6,14 +8,15 @@ type FieldType = {
 };
 
 type Props = {
-  onSubmit: (values: FieldType) => void;
+  form?: FormInstance;
+  onSubmit: SubmitEventHandler;
   submitText?: string;
 };
 
 const LoginForm = (props: Props) => {
-  const { onSubmit, submitText = 'Sign in' } = props;
+  const { onSubmit, submitText = 'Sign in', form } = props;
   return (
-    <Form onFinish={onSubmit} layout="vertical">
+    <Form form={form} onFinish={onSubmit} layout="vertical">
       <Form.Item<FieldType>
         label="Email"
         name="email"

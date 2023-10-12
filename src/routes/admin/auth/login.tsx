@@ -15,7 +15,11 @@ const AdminLogin = () => {
         </div>
 
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <LoginForm onSubmit={() => {}} />
+          <LoginForm
+            onSubmit={() => {
+              // TODO: Implement
+            }}
+          />
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}

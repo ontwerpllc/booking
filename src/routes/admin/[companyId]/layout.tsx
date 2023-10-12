@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import { Card, Drawer, MenuProps, theme } from 'antd';
+import { Button, Card, Drawer, Empty, MenuProps, theme } from 'antd';
 import AnalyticsIcon from '../../../icons/analytics';
 import BookingIcon from '../../../icons/booking';
 import UsersIcon from '../../../icons/users';
@@ -9,6 +9,9 @@ import SettingsIcon from '../../../icons/settings';
 import NavigationBar from './components/navigation-bar';
 import { useState } from 'react';
 import HeaderBar from './components/header-bar';
+import { DefaultOptionType } from 'antd/es/select';
+import PlusSmallIcon from '../../../icons/plus-small';
+import NewBusinessModal from './components/new-business-modal';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -33,6 +36,7 @@ function getItem(
 const basePath = '/admin/:companyId';
 
 const AdminDashboardLayout = () => {
+  const [isNewBusinessModalOpen, setIsNewBusinessModalOpen] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { companyId } = useParams();
   const { token } = useToken();
@@ -53,6 +57,14 @@ const AdminDashboardLayout = () => {
 
   const onSidebarClose = () => {
     setSidebarOpen(false);
+  };
+
+  const onClosableAction = () => {
+    setSidebarOpen(false);
+  };
+
+  const onNewBusinessModalOpen = () => {
+    setIsNewBusinessModalOpen(true);
   };
 
   // TODO: implement loading state
@@ -103,6 +115,8 @@ const AdminDashboardLayout = () => {
     ),
   ] satisfies MenuItem[];
 
+  const businesses: DefaultOptionType[] = [];
+
   return (
     <>
       <div>
@@ -112,6 +126,7 @@ const AdminDashboardLayout = () => {
             style={{ borderColor: token.colorBorderSecondary }}
           >
             <NavigationBar
+              businesses={businesses}
               basePath={basePath}
               menuItems={navigationItems}
               onMenuSelect={onMenuSelect}
@@ -130,7 +145,22 @@ const AdminDashboardLayout = () => {
           </div>
           <main className="py-4">
             <Card className="mx-4 px-4 sm:px-6 lg:px-8">
-              <Outlet />
+              {businesses.length > 0 ? (
+                <Outlet />
+              ) : (
+                <Empty
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description={'No avaliable businesses'}
+                >
+                  <Button
+                    type="primary"
+                    icon={<PlusSmallIcon />}
+                    onClick={onNewBusinessModalOpen}
+                  >
+                    New Business
+                  </Button>
+                </Empty>
+              )}
             </Card>
           </main>
         </div>
@@ -143,13 +173,20 @@ const AdminDashboardLayout = () => {
         open={isSidebarOpen}
       >
         <NavigationBar
+          businesses={businesses}
           basePath={basePath}
           menuItems={navigationItems}
           onMenuSelect={onMenuSelect}
           onBusinessSelect={onBusinessSelect}
+          onClosableAction={onClosableAction}
           isLoading={isLoading}
         />
       </Drawer>
+
+      <NewBusinessModal
+        isModalOpen={isNewBusinessModalOpen}
+        setIsModalOpen={setIsNewBusinessModalOpen}
+      />
     </>
   );
 };

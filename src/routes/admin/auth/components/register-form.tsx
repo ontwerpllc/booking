@@ -1,5 +1,16 @@
-import { Button, Form, GlobalToken, Input, Progress, theme } from 'antd';
+import {
+  Button,
+  Form,
+  FormInstance,
+  FormProps,
+  GlobalToken,
+  Input,
+  Progress,
+  theme,
+} from 'antd';
 import { ChangeEvent, useState } from 'react';
+
+type SubmitEventHandler = Required<FormProps>['onFinish'];
 
 type FieldType = {
   email?: string;
@@ -10,7 +21,8 @@ type FieldType = {
 };
 
 type Props = {
-  onSubmit: (values: FieldType) => void;
+  form?: FormInstance;
+  onSubmit: SubmitEventHandler;
   submitText?: string;
 };
 
@@ -53,7 +65,7 @@ function determinePasswordStrengthColor(strength: number, token: GlobalToken) {
 }
 
 const RegisterForm = (props: Props) => {
-  const { onSubmit, submitText = 'Sign up' } = props;
+  const { onSubmit, submitText = 'Sign up', form } = props;
   const { token } = useToken();
   const [passwordStrengthColor, setPasswordStrengthColor] = useState<string>(
     token.red,
@@ -68,7 +80,7 @@ const RegisterForm = (props: Props) => {
   };
 
   return (
-    <Form onFinish={onSubmit} layout="vertical">
+    <Form form={form} onFinish={onSubmit} layout="vertical">
       <div className="flex gap-6">
         <Form.Item<FieldType>
           label="First Name"

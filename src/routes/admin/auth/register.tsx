@@ -16,7 +16,11 @@ const AdminRegister = () => {
         </div>
 
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <RegisterForm onSubmit={() => {}} />
+          <RegisterForm
+            onSubmit={() => {
+              // TODO: Implement
+            }}
+          />
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already a member?{' '}
