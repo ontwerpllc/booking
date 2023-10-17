@@ -1,9 +1,9 @@
-import { Button, Col, Form, FormInstance, FormProps, Input, Row } from 'antd';
+import { Col, Form, FormInstance, FormProps, Input, Row } from 'antd';
 import { useRef } from 'react';
 
 type SubmitEventHandler = Required<FormProps>['onFinish'];
 
-type FieldType = {
+export type FieldType = {
   name?: string;
   uid?: string;
   street?: string;
@@ -14,12 +14,12 @@ type FieldType = {
 
 type Props = {
   form?: FormInstance;
-  onSubmit: SubmitEventHandler;
+  onSubmit?: SubmitEventHandler;
   submitText?: string;
 };
 
 const NewBusinessForm = (props: Props) => {
-  const { onSubmit, submitText = 'Create', form } = props;
+  const { onSubmit, form } = props;
   const formRef = useRef<FormInstance>(null);
 
   const onBusinessNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,18 +34,21 @@ const NewBusinessForm = (props: Props) => {
     <>
       <Form form={form} ref={formRef} onFinish={onSubmit} layout="vertical">
         <Row gutter={16}>
-          <Col flex={'auto'}>
+          <Col flex={2}>
             <Form.Item<FieldType>
               label="Business Name"
               name="name"
               rules={[
-                { required: true, message: 'Please input your business name' },
+                {
+                  required: true,
+                  message: 'Please input your business name',
+                },
               ]}
             >
               <Input onChange={onBusinessNameChange} />
             </Form.Item>
           </Col>
-          <Col>
+          <Col flex={1}>
             <Form.Item<FieldType>
               label="Unique Identifier"
               name="uid"
@@ -72,7 +75,7 @@ const NewBusinessForm = (props: Props) => {
         </Form.Item>
 
         <Row gutter={16}>
-          <Col>
+          <Col flex={1}>
             <Form.Item<FieldType>
               label="City"
               name="city"
@@ -81,7 +84,7 @@ const NewBusinessForm = (props: Props) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col>
+          <Col flex={1}>
             <Form.Item<FieldType>
               label="State / Province"
               name="state"
@@ -95,7 +98,7 @@ const NewBusinessForm = (props: Props) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col>
+          <Col flex={1}>
             <Form.Item<FieldType>
               label="ZIP / Postal Code"
               name="zip"
@@ -110,12 +113,6 @@ const NewBusinessForm = (props: Props) => {
             </Form.Item>
           </Col>
         </Row>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block className="mt-2">
-            {submitText}
-          </Button>
-        </Form.Item>
       </Form>
     </>
   );

@@ -58,16 +58,24 @@ const plans = [
 
 type Props = {
   currentPlan?: string;
+  selectedPlan?: string;
   onPlanSelect: (key: string) => void;
 };
 
 const PlanCards = (props: Props) => {
-  const { currentPlan, onPlanSelect } = props;
+  const { currentPlan, selectedPlan, onPlanSelect } = props;
   const { token } = useToken();
   return (
     <Space align="end" className="grid lg:grid-cols-3 mt-6">
       {plans.map((plan) => (
-        <Card className="lg:w-64" key={plan.key}>
+        <Card
+          className="lg:w-64"
+          key={plan.key}
+          style={{
+            borderColor:
+              selectedPlan === plan.key ? token.colorPrimary : undefined,
+          }}
+        >
           <div className="flex justify-between items-center">
             <Text
               className={cn('font-semibold', {
@@ -113,7 +121,7 @@ const PlanCards = (props: Props) => {
           <Divider />
           <Button
             type={plan.mostPopular ? 'primary' : 'default'}
-            disabled={currentPlan === plan.key}
+            disabled={currentPlan === plan.key || selectedPlan === plan.key}
             onClick={() => onPlanSelect(plan.key)}
             block
           >
