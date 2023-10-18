@@ -10,7 +10,7 @@ import {
   theme,
 } from 'antd';
 import BrandIcon from '../../../../components/brand-icon';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import PlanModal from './plan-modal';
 import { useState } from 'react';
 
@@ -26,6 +26,7 @@ type SelectEventHandler = Required<SelectProps>['onSelect'];
 type Props = {
   menuItems: MenuItem[];
   businesses: SelectProps['options'];
+  defaultBusiness?: string;
   onMenuSelect: MenuSelectEventHandler;
   onBusinessSelect: SelectEventHandler;
   onClosableAction?: () => void;
@@ -47,6 +48,7 @@ const NavigationBar = (props: Props) => {
     onMenuSelect,
     onBusinessSelect,
     onClosableAction,
+    defaultBusiness,
     isLoading,
     basePath,
     businesses,
@@ -70,6 +72,22 @@ const NavigationBar = (props: Props) => {
     onBusinessSelect(value, option);
   };
 
+  const isDefaultBusiness = defaultBusiness === 'default';
+
+  const selectedBusiness =
+    businesses?.find((business) => business.value === defaultBusiness)?.value ??
+    defaultBusiness === 'default'
+      ? businesses?.[0]?.value
+      : undefined;
+
+  if (selectedBusiness !== defaultBusiness && !isDefaultBusiness) {
+    if (!selectedBusiness) {
+      return <Navigate to={`/admin/default`} />;
+    }
+
+    return <Navigate to={`/admin/${selectedBusiness}`} />;
+  }
+
   return (
     <div
       className="flex flex-col justify-between h-full"
@@ -89,6 +107,7 @@ const NavigationBar = (props: Props) => {
             onSelect={onBusinessSelectWrapper}
             options={businesses}
             loading={isLoading}
+            defaultValue={selectedBusiness}
           />
         </div>
         <Menu

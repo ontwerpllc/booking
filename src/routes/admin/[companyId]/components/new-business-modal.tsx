@@ -19,6 +19,8 @@ const NewBusinessModal = (props: Props) => {
   const onCancel = () => {
     setIsModalOpen(false);
     businessInfoForm.resetFields();
+    setStep(0);
+    setPlan(undefined);
   };
 
   const onSubmit = () => {

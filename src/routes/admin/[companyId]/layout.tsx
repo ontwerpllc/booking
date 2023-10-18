@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import { Button, Card, Drawer, Empty, MenuProps, theme } from 'antd';
+import { Button, Drawer, Empty, MenuProps, theme } from 'antd';
 import AnalyticsIcon from '../../../icons/analytics';
 import BookingIcon from '../../../icons/booking';
 import UsersIcon from '../../../icons/users';
@@ -115,7 +115,12 @@ const AdminDashboardLayout = () => {
     ),
   ] satisfies MenuItem[];
 
-  const businesses: DefaultOptionType[] = [];
+  const businesses: DefaultOptionType[] = [
+    {
+      label: 'Business 1',
+      value: 'business-1',
+    },
+  ];
 
   return (
     <>
@@ -127,6 +132,7 @@ const AdminDashboardLayout = () => {
           >
             <NavigationBar
               businesses={businesses}
+              defaultBusiness={companyId}
               basePath={basePath}
               menuItems={navigationItems}
               onMenuSelect={onMenuSelect}
@@ -144,7 +150,7 @@ const AdminDashboardLayout = () => {
             />
           </div>
           <main className="py-4">
-            <Card className="mx-4 px-4 sm:px-6 lg:px-8">
+            <div className="mx-4 px-4 sm:px-6 lg:px-8">
               {businesses.length > 0 ? (
                 <Outlet />
               ) : (
@@ -161,7 +167,7 @@ const AdminDashboardLayout = () => {
                   </Button>
                 </Empty>
               )}
-            </Card>
+            </div>
           </main>
         </div>
       </div>
