@@ -13,6 +13,7 @@ import BrandIcon from '../../../../components/brand-icon';
 import { Navigate, useLocation } from 'react-router-dom';
 import PlanModal from './plan-modal';
 import { useState } from 'react';
+import { getBusinesses } from '../../../../api/functions/getBusinesses';
 
 const { Text } = Typography;
 const { useToken } = theme;
@@ -26,6 +27,7 @@ type SelectEventHandler = Required<SelectProps>['onSelect'];
 type Props = {
   menuItems: MenuItem[];
   businesses: SelectProps['options'];
+  selectedBusinessUid?: string;
   defaultBusiness?: string;
   onMenuSelect: MenuSelectEventHandler;
   onBusinessSelect: SelectEventHandler;
@@ -48,6 +50,7 @@ const NavigationBar = (props: Props) => {
     onMenuSelect,
     onBusinessSelect,
     onClosableAction,
+    selectedBusinessUid,
     defaultBusiness,
     isLoading,
     basePath,
@@ -72,21 +75,25 @@ const NavigationBar = (props: Props) => {
     onBusinessSelect(value, option);
   };
 
-  const isDefaultBusiness = defaultBusiness === 'default';
+  const isDefaultBusiness = selectedBusinessUid === 'default';
 
   const selectedBusiness =
-    businesses?.find((business) => business.value === defaultBusiness)?.value ??
-    defaultBusiness === 'default'
-      ? businesses?.[0]?.value
-      : undefined;
+    businesses?.find((business) => business.value === selectedBusinessUid) ??
+    isDefaultBusiness
+      ? businesses?.find((business) => business.value === defaultBusiness)
+      : null;
 
-  if (selectedBusiness !== defaultBusiness && !isDefaultBusiness) {
-    if (!selectedBusiness) {
+  if (selectedBusiness?.value !== defaultBusiness && !isDefaultBusiness) {
+    if (!selectedBusiness?.value) {
       return <Navigate to={`/admin/default`} />;
     }
 
-    return <Navigate to={`/admin/${selectedBusiness}`} />;
+    return <Navigate to={`/admin/${selectedBusiness?.value}`} />;
   }
+
+  const business = getBusinesses().find(
+    (business) => business.uid === selectedBusinessUid,
+  );
 
   return (
     <div
@@ -107,7 +114,7 @@ const NavigationBar = (props: Props) => {
             onSelect={onBusinessSelectWrapper}
             options={businesses}
             loading={isLoading}
-            defaultValue={selectedBusiness}
+            defaultValue={selectedBusiness?.value}
           />
         </div>
         <Menu
@@ -123,11 +130,11 @@ const NavigationBar = (props: Props) => {
         <Divider />
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <Text>Current Plan</Text>
+            <Text>{business?.subscription.name}</Text>
             {isLoading ? (
               <Skeleton paragraph={false} active />
             ) : (
-              <Text type="secondary">$10/mo</Text>
+              <Text type="secondary">{`$${business?.subscription.price}/mo`}</Text>
             )}
           </div>
           <Button disabled={isLoading} onClick={onPlanModalOpen}>

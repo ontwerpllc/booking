@@ -8,6 +8,9 @@ import {
   theme,
 } from 'antd';
 import BarsIcon from '../../../../icons/bars';
+import { getAccount } from '../../../../api/functions/getAccount';
+
+const user = getAccount();
 
 const { useToken } = theme;
 
@@ -42,7 +45,9 @@ const HeaderBar = (props: Props) => {
       <div className="ml-auto flex gap-x-4">
         <div className="flex items-center gap-x-4">
           <Dropdown menu={{ items: profileItems }} arrow>
-            <Avatar className="select-none cursor-pointer">U</Avatar>
+            <Avatar className="select-none cursor-pointer">
+              {`${user.firstName[0]}${user.lastName[0]}`}
+            </Avatar>
           </Dropdown>
         </div>
       </div>

@@ -12,6 +12,12 @@ import HeaderBar from './components/header-bar';
 import { DefaultOptionType } from 'antd/es/select';
 import PlusSmallIcon from '../../../icons/plus-small';
 import NewBusinessModal from './components/new-business-modal';
+import { getBusinesses } from '../../../api/functions/getBusinesses';
+import { getBusiness } from '../../../api/functions/getBusiness';
+import { getAccount } from '../../../api/functions/getAccount';
+
+const businesses = getBusinesses();
+const preference = getAccount().preference;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -115,12 +121,16 @@ const AdminDashboardLayout = () => {
     ),
   ] satisfies MenuItem[];
 
-  const businesses: DefaultOptionType[] = [
-    {
-      label: 'Business 1',
-      value: 'business-1',
-    },
-  ];
+  const businessOptions: DefaultOptionType[] = businesses.map((business) => ({
+    label: business.name,
+    value: business.uid,
+  }));
+
+  const defaultBusiness = preference?.defaultBusinessId
+    ? getBusiness({
+        businessId: preference?.defaultBusinessId,
+      })?.uid
+    : businesses[0]?.uid;
 
   return (
     <>
@@ -131,8 +141,9 @@ const AdminDashboardLayout = () => {
             style={{ borderColor: token.colorBorderSecondary }}
           >
             <NavigationBar
-              businesses={businesses}
-              defaultBusiness={companyId}
+              businesses={businessOptions}
+              selectedBusinessUid={companyId}
+              defaultBusiness={defaultBusiness}
               basePath={basePath}
               menuItems={navigationItems}
               onMenuSelect={onMenuSelect}
@@ -179,7 +190,9 @@ const AdminDashboardLayout = () => {
         open={isSidebarOpen}
       >
         <NavigationBar
-          businesses={businesses}
+          businesses={businessOptions}
+          selectedBusinessUid={companyId}
+          defaultBusiness={defaultBusiness}
           basePath={basePath}
           menuItems={navigationItems}
           onMenuSelect={onMenuSelect}

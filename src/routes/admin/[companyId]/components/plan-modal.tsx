@@ -1,6 +1,8 @@
 import { Modal } from 'antd';
 import { Dispatch } from 'react';
 import PlanCards from './plan-cards';
+import { useParams } from 'react-router-dom';
+import { getBusiness } from '../../../../api/functions/getBusiness';
 
 type Props = {
   isModalOpen: boolean;
@@ -9,6 +11,7 @@ type Props = {
 
 const PlanModal = (props: Props) => {
   const { setIsModalOpen, isModalOpen } = props;
+  const { companyId } = useParams();
 
   const onCancel = () => {
     setIsModalOpen(false);
@@ -19,8 +22,7 @@ const PlanModal = (props: Props) => {
     console.log(key);
   };
 
-  // TODO: Replace with actual plan
-  const currentPlan = 'essential';
+  const business = getBusiness({ businessUid: companyId });
 
   return (
     <Modal
@@ -30,7 +32,10 @@ const PlanModal = (props: Props) => {
       footer={null}
       width={'fit-content'}
     >
-      <PlanCards currentPlan={currentPlan} onPlanSelect={onPlanSelect} />
+      <PlanCards
+        currentPlan={business?.subscription.uid}
+        onPlanSelect={onPlanSelect}
+      />
     </Modal>
   );
 };
