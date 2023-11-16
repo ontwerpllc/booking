@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-function BrandIcon(props: SVGProps<SVGSVGElement>) {
+export const BrandIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       viewBox="0 0 1024 1024"
@@ -40,6 +40,4 @@ function BrandIcon(props: SVGProps<SVGSVGElement>) {
       </g>
     </svg>
   );
-}
-
-export default BrandIcon;
+};

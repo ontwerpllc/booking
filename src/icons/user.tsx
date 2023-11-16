@@ -19,8 +19,6 @@ const UserSvg = () => (
   </svg>
 );
 
-const UserIcon = (props: Partial<CustomIconComponentProps>) => (
+export const UserIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={UserSvg} {...props} />
 );
-
-export default UserIcon;

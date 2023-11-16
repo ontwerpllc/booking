@@ -19,8 +19,6 @@ const OfficeSvg = () => (
   </svg>
 );
 
-const OfficeIcon = (props: Partial<CustomIconComponentProps>) => (
+export const OfficeIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={OfficeSvg} {...props} />
 );
-
-export default OfficeIcon;

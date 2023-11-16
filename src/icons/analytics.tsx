@@ -19,8 +19,6 @@ const AnalyticsSvg = () => (
   </svg>
 );
 
-const AnalyticsIcon = (props: Partial<CustomIconComponentProps>) => (
+export const AnalyticsIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={AnalyticsSvg} {...props} />
 );
-
-export default AnalyticsIcon;

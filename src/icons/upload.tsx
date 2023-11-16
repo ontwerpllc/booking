@@ -18,8 +18,7 @@ const UploadSvg = () => (
     />
   </svg>
 );
-const UploadIcon = (props: Partial<CustomIconComponentProps>) => (
+
+export const UploadIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={UploadSvg} {...props} />
 );
-
-export default UploadIcon;

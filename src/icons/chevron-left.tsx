@@ -19,8 +19,6 @@ const ChevronLeftSvg = () => (
   </svg>
 );
 
-const ChevronLeftIcon = (props: Partial<CustomIconComponentProps>) => (
+export const ChevronLeftIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={ChevronLeftSvg} {...props} />
 );
-
-export default ChevronLeftIcon;

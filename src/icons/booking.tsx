@@ -19,8 +19,6 @@ const BookingSvg = () => (
   </svg>
 );
 
-const BookingIcon = (props: Partial<CustomIconComponentProps>) => (
+export const BookingIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={BookingSvg} {...props} />
 );
-
-export default BookingIcon;

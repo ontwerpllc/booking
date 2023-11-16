@@ -19,8 +19,6 @@ const BellSvg = () => (
   </svg>
 );
 
-const BellIcon = (props: Partial<CustomIconComponentProps>) => (
+export const BellIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={BellSvg} {...props} />
 );
-
-export default BellIcon;

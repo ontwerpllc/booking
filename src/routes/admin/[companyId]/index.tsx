@@ -10,14 +10,14 @@ import {
 } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import PlusSmallIcon from '../../../icons/plus-small';
-import { getAccountName } from '../../../api/functions/getAccountName';
-import { getBookings } from '../../../api/functions/getBookings';
 import { useParams } from 'react-router-dom';
-import { getBusiness } from '../../../api/functions/getBusiness';
-import { Booking } from '../../../api/types/booking';
-import { TimeSlot } from '../../../api/types/time-slot';
-import { Account } from '../../../api/types/account';
+import { getAccountName } from '~/api/functions/getAccountName';
+import { getBookings } from '~/api/functions/getBookings';
+import { getBusiness } from '~/api/functions/getBusiness';
+import { Account } from '~/api/types/account';
+import { Booking } from '~/api/types/booking';
+import { TimeSlot } from '~/api/types/time-slot';
+import { PlusSmallIcon } from '~/icons/plus-small';
 
 const { Text } = Typography;
 

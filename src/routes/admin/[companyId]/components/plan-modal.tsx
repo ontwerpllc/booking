@@ -1,15 +1,15 @@
 import { Modal } from 'antd';
 import { Dispatch } from 'react';
-import PlanCards from './plan-cards';
 import { useParams } from 'react-router-dom';
-import { getBusiness } from '../../../../api/functions/getBusiness';
+import { PlanCards } from './plan-cards';
+import { getBusiness } from '~/api/functions/getBusiness';
 
 type Props = {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<React.SetStateAction<boolean>>;
 };
 
-const PlanModal = (props: Props) => {
+export const PlanModal = (props: Props) => {
   const { setIsModalOpen, isModalOpen } = props;
   const { companyId } = useParams();
 
@@ -39,5 +39,3 @@ const PlanModal = (props: Props) => {
     </Modal>
   );
 };
-
-export default PlanModal;

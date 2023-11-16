@@ -1,20 +1,17 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { Button, Drawer, Empty, MenuProps, theme } from 'antd';
-import AnalyticsIcon from '../../../icons/analytics';
-import BookingIcon from '../../../icons/booking';
-import UsersIcon from '../../../icons/users';
-import SettingsIcon from '../../../icons/settings';
 
-import NavigationBar from './components/navigation-bar';
 import { useState } from 'react';
-import HeaderBar from './components/header-bar';
 import { DefaultOptionType } from 'antd/es/select';
-import PlusSmallIcon from '../../../icons/plus-small';
-import NewBusinessModal from './components/new-business-modal';
-import { getBusinesses } from '../../../api/functions/getBusinesses';
-import { getBusiness } from '../../../api/functions/getBusiness';
-import { getAccount } from '../../../api/functions/getAccount';
+import { getAccount } from '~/api/functions/getAccount';
+import { getBusiness } from '~/api/functions/getBusiness';
+import { getBusinesses } from '~/api/functions/getBusinesses';
+import { BookingIcon, AnalyticsIcon, UsersIcon, SettingsIcon } from '~/icons';
+import { PlusSmallIcon } from '~/icons/plus-small';
+import { HeaderBar } from './components/header-bar';
+import { NavigationBar } from './components/navigation-bar';
+import { NewBusinessModal } from './components/new-business-modal';
 
 const businesses = getBusinesses();
 const preference = getAccount().preference;

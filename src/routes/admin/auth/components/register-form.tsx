@@ -64,7 +64,7 @@ function determinePasswordStrengthColor(strength: number, token: GlobalToken) {
   return color;
 }
 
-const RegisterForm = (props: Props) => {
+export const RegisterForm = (props: Props) => {
   const { onSubmit, submitText = 'Sign up', form } = props;
   const { token } = useToken();
   const [passwordStrengthColor, setPasswordStrengthColor] = useState<string>(
@@ -148,5 +148,3 @@ const RegisterForm = (props: Props) => {
     </Form>
   );
 };
-
-export default RegisterForm;

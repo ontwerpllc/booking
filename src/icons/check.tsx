@@ -18,8 +18,6 @@ const CheckSvg = () => (
   </svg>
 );
 
-const CheckIcon = (props: Partial<CustomIconComponentProps>) => (
+export const CheckIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={CheckSvg} {...props} />
 );
-
-export default CheckIcon;

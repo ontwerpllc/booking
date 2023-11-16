@@ -19,8 +19,6 @@ const PointerSvg = () => (
   </svg>
 );
 
-const PointerIcon = (props: Partial<CustomIconComponentProps>) => (
+export const PointerIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={PointerSvg} {...props} />
 );
-
-export default PointerIcon;

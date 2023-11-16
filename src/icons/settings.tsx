@@ -19,8 +19,6 @@ const SettingsSvg = () => (
   </svg>
 );
 
-const SettingsIcon = (props: Partial<CustomIconComponentProps>) => (
+export const SettingsIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={SettingsSvg} {...props} />
 );
-
-export default SettingsIcon;

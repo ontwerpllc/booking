@@ -15,8 +15,6 @@ const PlusSmallSvg = () => (
   </svg>
 );
 
-const PlusSmallIcon = (props: Partial<CustomIconComponentProps>) => (
+export const PlusSmallIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={PlusSmallSvg} {...props} />
 );
-
-export default PlusSmallIcon;

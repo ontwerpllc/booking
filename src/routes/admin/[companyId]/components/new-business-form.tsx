@@ -18,7 +18,7 @@ type Props = {
   submitText?: string;
 };
 
-const NewBusinessForm = (props: Props) => {
+export const NewBusinessForm = (props: Props) => {
   const { onSubmit, form } = props;
   const formRef = useRef<FormInstance>(null);
 
@@ -117,5 +117,3 @@ const NewBusinessForm = (props: Props) => {
     </>
   );
 };
-
-export default NewBusinessForm;

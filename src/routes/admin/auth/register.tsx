@@ -1,7 +1,8 @@
-import Link from 'antd/es/typography/Link';
-import Title from 'antd/es/typography/Title';
-import BrandIcon from '../../../components/brand-icon';
-import RegisterForm from './components/register-form';
+import { Typography } from 'antd';
+import { BrandIcon } from '~/components/brand-icon';
+import { RegisterForm } from './components/register-form';
+
+const { Title, Link } = Typography;
 
 const AdminRegister = () => {
   return (

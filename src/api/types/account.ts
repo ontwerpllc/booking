@@ -6,4 +6,5 @@ export type Account = {
   lastName: string;
   email: string;
   preference: Preference;
+  notes?: string;
 };

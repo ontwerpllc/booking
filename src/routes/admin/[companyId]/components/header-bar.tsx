@@ -7,8 +7,8 @@ import {
   MenuProps,
   theme,
 } from 'antd';
-import BarsIcon from '../../../../icons/bars';
-import { getAccount } from '../../../../api/functions/getAccount';
+import { getAccount } from '~/api/functions/getAccount';
+import { BarsIcon } from '~/icons';
 
 const user = getAccount();
 
@@ -22,7 +22,7 @@ type Props = {
   onSidebarOpen: ButtonClickEventHandler;
 };
 
-const HeaderBar = (props: Props) => {
+export const HeaderBar = (props: Props) => {
   const { onSidebarOpen, profileItems } = props;
   const { token } = useToken();
 
@@ -54,5 +54,3 @@ const HeaderBar = (props: Props) => {
     </div>
   );
 };
-
-export default HeaderBar;

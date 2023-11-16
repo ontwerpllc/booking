@@ -15,9 +15,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const ThemeProvider = (props: Props) => {
+export const ThemeProvider = (props: Props) => {
   const { children } = props;
   return <ConfigProvider theme={theme}>{children}</ConfigProvider>;
 };
-
-export default ThemeProvider;

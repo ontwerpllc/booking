@@ -9,16 +9,15 @@ import {
   SelectProps,
   theme,
 } from 'antd';
-import BrandIcon from '../../../../components/brand-icon';
 import { Navigate, useLocation } from 'react-router-dom';
-import PlanModal from './plan-modal';
 import { useState } from 'react';
-import { getBusinesses } from '../../../../api/functions/getBusinesses';
+import { getBusinesses } from '~/api/functions/getBusinesses';
+import { env } from '~/lib/env';
+import { PlanModal } from './plan-modal';
+import { BrandIcon } from '~/components/brand-icon';
 
 const { Text } = Typography;
 const { useToken } = theme;
-
-const { VITE_APP_VERSION, VITE_BRAND_NAME } = import.meta.env;
 
 type MenuItem = Required<MenuProps>['items'][number];
 type MenuSelectEventHandler = Required<MenuProps>['onSelect'];
@@ -44,7 +43,7 @@ const getSelectedParentKeys = (path: string) => {
   return path.split('/').splice(0, path.split('/').length - 1);
 };
 
-const NavigationBar = (props: Props) => {
+export const NavigationBar = (props: Props) => {
   const {
     menuItems,
     onMenuSelect,
@@ -104,7 +103,7 @@ const NavigationBar = (props: Props) => {
         <div className="flex my-4 shrink-0 items-center mx-4 gap-2">
           <BrandIcon className="h-8 w-auto" />
           <Text className="text-2xl font-semibold uppercase">
-            {VITE_BRAND_NAME}
+            {env.BRAND_NAME}
           </Text>
         </div>
         <div className="mx-4">
@@ -124,6 +123,7 @@ const NavigationBar = (props: Props) => {
           defaultSelectedKeys={[selectedPathKey]}
           defaultOpenKeys={getSelectedParentKeys(selectedPathKey)}
           onSelect={onMenuSelectWrapper}
+          selectedKeys={[selectedPathKey]}
         />
       </div>
       <div className="mt-auto mx-4">
@@ -143,7 +143,7 @@ const NavigationBar = (props: Props) => {
         </div>
         <Divider />
         <div>
-          <Text type="secondary">Version {VITE_APP_VERSION}</Text>
+          <Text type="secondary">Version {env.APP_VERSION}</Text>
         </div>
       </div>
 
@@ -154,5 +154,3 @@ const NavigationBar = (props: Props) => {
     </div>
   );
 };
-
-export default NavigationBar;

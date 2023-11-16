@@ -8,9 +8,9 @@ import {
   Divider,
   Button,
 } from 'antd';
-import CheckIcon from '../../../../icons/check';
-import { cn } from '../../../../lib/utils';
-import { getPlans } from '../../../../api/functions/getPlans';
+import { getPlans } from '~/api/functions/getPlans';
+import { CheckIcon } from '~/icons';
+import { cn } from '~/lib/utils';
 
 const { Text } = Typography;
 const { useToken } = theme;
@@ -21,7 +21,7 @@ type Props = {
   onPlanSelect: (key: string) => void;
 };
 
-const PlanCards = (props: Props) => {
+export const PlanCards = (props: Props) => {
   const { currentPlan, selectedPlan, onPlanSelect } = props;
   const { token } = useToken();
 
@@ -97,5 +97,3 @@ const PlanCards = (props: Props) => {
     </Space>
   );
 };
-
-export default PlanCards;

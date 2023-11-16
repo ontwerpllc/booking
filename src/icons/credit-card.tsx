@@ -19,8 +19,6 @@ const CreditCardSvg = () => (
   </svg>
 );
 
-const CreditCardIcon = (props: Partial<CustomIconComponentProps>) => (
+export const CreditCardIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={CreditCardSvg} {...props} />
 );
-
-export default CreditCardIcon;

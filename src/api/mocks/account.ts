@@ -19,6 +19,7 @@ export const mockAccount1: Account = {
   firstName: 'Jane',
   lastName: 'Doe',
   preference: mockPreference3,
+  notes: 'This is a note',
 };
 
 export const mockAccount2: Account = {

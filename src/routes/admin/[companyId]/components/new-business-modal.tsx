@@ -1,7 +1,7 @@
 import { Button, Form, Modal, Steps } from 'antd';
 import { Dispatch, useMemo, useState } from 'react';
-import NewBusinessForm from './new-business-form';
-import PlanCards from './plan-cards';
+import { PlanCards } from './plan-cards';
+import { NewBusinessForm } from './new-business-form';
 
 const { useForm } = Form;
 
@@ -10,7 +10,7 @@ type Props = {
   setIsModalOpen: Dispatch<React.SetStateAction<boolean>>;
 };
 
-const NewBusinessModal = (props: Props) => {
+export const NewBusinessModal = (props: Props) => {
   const { setIsModalOpen, isModalOpen } = props;
   const [step, setStep] = useState(0);
   const [businessInfoForm] = useForm();
@@ -88,5 +88,3 @@ const NewBusinessModal = (props: Props) => {
     </Modal>
   );
 };
-
-export default NewBusinessModal;

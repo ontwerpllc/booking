@@ -13,7 +13,7 @@ type Props = {
   submitText?: string;
 };
 
-const LoginForm = (props: Props) => {
+export const LoginForm = (props: Props) => {
   const { onSubmit, submitText = 'Sign in', form } = props;
   return (
     <Form form={form} onFinish={onSubmit} layout="vertical">
@@ -41,5 +41,3 @@ const LoginForm = (props: Props) => {
     </Form>
   );
 };
-
-export default LoginForm;

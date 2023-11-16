@@ -19,8 +19,6 @@ const HomeSvg = () => (
   </svg>
 );
 
-const HomeIcon = (props: Partial<CustomIconComponentProps>) => (
+export const HomeIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={HomeSvg} {...props} />
 );
-
-export default HomeIcon;

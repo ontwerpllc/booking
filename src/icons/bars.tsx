@@ -19,8 +19,6 @@ const BarsSvg = () => (
   </svg>
 );
 
-const BarsIcon = (props: Partial<CustomIconComponentProps>) => (
+export const BarsIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={BarsSvg} {...props} />
 );
-
-export default BarsIcon;

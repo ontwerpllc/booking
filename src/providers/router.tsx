@@ -66,13 +66,10 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: '*',
     element: <NotFound />,
   },
 ]);
 
-const Router = () => <RouterProvider router={router} />;
-
-export default Router;
+export const Router = () => <RouterProvider router={router} />;
