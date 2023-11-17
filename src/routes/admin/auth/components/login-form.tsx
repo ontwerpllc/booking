@@ -1,4 +1,5 @@
-import { Button, Form, FormInstance, FormProps, Input } from 'antd';
+import type { FormInstance, FormProps} from 'antd';
+import { Button, Form, Input } from 'antd';
 
 type SubmitEventHandler = Required<FormProps>['onFinish'];
 

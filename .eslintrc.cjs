@@ -15,5 +15,10 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'no-console': 'warn',
+    '@typescript-eslint/consistent-type-exports': 'warn',
+    '@typescript-eslint/consistent-type-imports': 'warn',
+  },
+  parserOptions: {
+    project: ['./tsconfig.json', './tsconfig.node.json'],
   },
 };

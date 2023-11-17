@@ -1,4 +1,4 @@
-import { Preference } from './preference';
+import type { Preference } from './preference';
 
 export type Account = {
   id: number;

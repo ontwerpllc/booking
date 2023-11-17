@@ -1,4 +1,4 @@
-import { Business } from '../types/business';
+import type { Business } from '../types/business';
 import { mockMembers } from './account';
 import { mockSubscription1, mockSubscription2 } from './subscription';
 import { mockTimeSlots } from './time-slot';

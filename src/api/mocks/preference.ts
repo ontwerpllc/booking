@@ -1,4 +1,4 @@
-import { Preference } from '../types/preference';
+import type { Preference } from '../types/preference';
 
 export const mockPreference1: Preference = {
   id: 1,

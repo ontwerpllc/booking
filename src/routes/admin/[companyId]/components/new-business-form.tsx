@@ -1,4 +1,5 @@
-import { Col, Form, FormInstance, FormProps, Input, Row } from 'antd';
+import type { FormInstance, FormProps} from 'antd';
+import { Col, Form, Input, Row } from 'antd';
 import { useRef } from 'react';
 
 type SubmitEventHandler = Required<FormProps>['onFinish'];

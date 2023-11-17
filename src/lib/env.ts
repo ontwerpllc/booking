@@ -14,6 +14,7 @@ const envSchema = z.object({
   APP_TITLE: z.string(),
   BRAND_NAME: z.string(),
   APP_VERSION: z.string(),
+  APP_NAME: z.string(),
 });
 
 const envFromMeta = {
@@ -22,7 +23,8 @@ const envFromMeta = {
   SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
   APP_TITLE: import.meta.env.VITE_APP_TITLE,
   BRAND_NAME: import.meta.env.VITE_BRAND_NAME,
-  APP_VERSION: import.meta.env.VITE_APP_VERSION,
+  APP_VERSION: import.meta.env.PACKAGE_VERSION,
+  APP_NAME: import.meta.env.VITE_APP_NAME,
 } satisfies z.infer<typeof envSchema>;
 
 function getEnv() {

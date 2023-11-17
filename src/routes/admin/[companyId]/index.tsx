@@ -14,9 +14,9 @@ import { useParams } from 'react-router-dom';
 import { getAccountName } from '~/api/functions/getAccountName';
 import { getBookings } from '~/api/functions/getBookings';
 import { getBusiness } from '~/api/functions/getBusiness';
-import { Account } from '~/api/types/account';
-import { Booking } from '~/api/types/booking';
-import { TimeSlot } from '~/api/types/time-slot';
+import type { Account } from '~/api/types/account';
+import type { Booking } from '~/api/types/booking';
+import type { TimeSlot } from '~/api/types/time-slot';
 import { PlusSmallIcon } from '~/icons/plus-small';
 
 const { Text } = Typography;

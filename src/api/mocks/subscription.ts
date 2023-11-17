@@ -1,4 +1,4 @@
-import { Subscription } from '../types/subscription';
+import type { Subscription } from '../types/subscription';
 
 export const mockSubscription1: Subscription = {
   id: 1,

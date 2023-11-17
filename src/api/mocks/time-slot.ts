@@ -1,4 +1,4 @@
-import { TimeSlot } from '../types/time-slot';
+import type { TimeSlot } from '../types/time-slot';
 
 export const mockTimeSlot1: TimeSlot = {
   id: 1,

@@ -1,14 +1,16 @@
+import type {
+  FormInstance,
+  FormProps,
+  GlobalToken} from 'antd';
 import {
   Button,
   Form,
-  FormInstance,
-  FormProps,
-  GlobalToken,
   Input,
   Progress,
   theme,
 } from 'antd';
-import { ChangeEvent, useState } from 'react';
+import type { ChangeEvent} from 'react';
+import { useState } from 'react';
 
 type SubmitEventHandler = Required<FormProps>['onFinish'];
 

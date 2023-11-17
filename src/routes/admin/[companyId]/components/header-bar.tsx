@@ -1,10 +1,11 @@
+import type {
+  ButtonProps,
+  MenuProps} from 'antd';
 import {
   Avatar,
   Button,
-  ButtonProps,
   Divider,
   Dropdown,
-  MenuProps,
   theme,
 } from 'antd';
 import { getAccount } from '~/api/functions/getAccount';

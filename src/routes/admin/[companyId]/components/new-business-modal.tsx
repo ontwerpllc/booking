@@ -1,5 +1,6 @@
 import { Button, Form, Modal, Steps } from 'antd';
-import { Dispatch, useMemo, useState } from 'react';
+import type { Dispatch} from 'react';
+import { useMemo, useState } from 'react';
 import { PlanCards } from './plan-cards';
 import { NewBusinessForm } from './new-business-form';
 

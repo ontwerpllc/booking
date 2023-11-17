@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-import { Dispatch } from 'react';
+import type { Dispatch } from 'react';
 import { useParams } from 'react-router-dom';
 import { PlanCards } from './plan-cards';
 import { getBusiness } from '~/api/functions/getBusiness';

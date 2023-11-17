@@ -1,9 +1,10 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import { Button, Drawer, Empty, MenuProps, theme } from 'antd';
+import type { MenuProps} from 'antd';
+import { Button, Drawer, Empty, theme } from 'antd';
 
 import { useState } from 'react';
-import { DefaultOptionType } from 'antd/es/select';
+import type { DefaultOptionType } from 'antd/es/select';
 import { getAccount } from '~/api/functions/getAccount';
 import { getBusiness } from '~/api/functions/getBusiness';
 import { getBusinesses } from '~/api/functions/getBusinesses';

@@ -1,6 +1,6 @@
-import { Account } from './account';
-import { Subscription } from './subscription';
-import { TimeSlot } from './time-slot';
+import type { Account } from './account';
+import type { Subscription } from './subscription';
+import type { TimeSlot } from './time-slot';
 
 export type Business = {
   id: number;

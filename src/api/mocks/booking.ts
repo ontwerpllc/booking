@@ -4,10 +4,10 @@ import {
   mockMember1,
   mockMember2,
 } from './account';
-import { Booking } from '../types/booking';
+import type { Booking } from '../types/booking';
 import { mockTimeSlot3, mockTimeSlot5 } from './time-slot';
 import dayjs from 'dayjs';
-import { Account } from '../types/account';
+import type { Account } from '../types/account';
 
 export const mockBooking1: Booking = {
   id: 1,

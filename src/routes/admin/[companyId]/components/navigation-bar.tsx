@@ -1,12 +1,13 @@
+import type {
+  MenuProps,
+  SelectProps} from 'antd';
 import {
   Select,
   Menu,
   Divider,
   Button,
-  MenuProps,
   Typography,
   Skeleton,
-  SelectProps,
   theme,
 } from 'antd';
 import { Navigate, useLocation } from 'react-router-dom';
