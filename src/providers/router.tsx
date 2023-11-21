@@ -11,6 +11,7 @@ import AdminDashboardAnalytics from '../routes/admin/[companyId]/analytics';
 import AdminDashboardSettingsGeneral from '../routes/admin/[companyId]/settings/general';
 import AdminDashboardSettingsTimeSlots from '../routes/admin/[companyId]/settings/time-slots';
 import AdminDashboardCustomers from '../routes/admin/[companyId]/customers';
+import { ProtectedLayout } from '~/layouts/protected';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,11 @@ const router = createBrowserRouter([
         element: <AdminRegister />,
       },
       {
-        element: <AdminDashboardLayout />,
+        element: (
+          <ProtectedLayout redirect="/admin/auth/login">
+            <AdminDashboardLayout />
+          </ProtectedLayout>
+        ),
         children: [
           {
             path: 'admin/:companyId/',

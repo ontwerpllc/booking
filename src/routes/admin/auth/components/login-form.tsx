@@ -1,11 +1,11 @@
-import type { FormInstance, FormProps} from 'antd';
+import type { FormInstance, FormProps } from 'antd';
 import { Button, Form, Input } from 'antd';
 
-type SubmitEventHandler = Required<FormProps>['onFinish'];
+type SubmitEventHandler = Required<FormProps<FieldType>>['onFinish'];
 
 type FieldType = {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 };
 
 type Props = {

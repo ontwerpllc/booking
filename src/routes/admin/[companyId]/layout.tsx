@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import type { MenuProps} from 'antd';
+import type { MenuProps } from 'antd';
 import { Button, Drawer, Empty, theme } from 'antd';
 
 import { useState } from 'react';
@@ -13,6 +13,7 @@ import { PlusSmallIcon } from '~/icons/plus-small';
 import { HeaderBar } from './components/header-bar';
 import { NavigationBar } from './components/navigation-bar';
 import { NewBusinessModal } from './components/new-business-modal';
+import { useSignOut } from '~/api/hooks/auth';
 
 const businesses = getBusinesses();
 const preference = getAccount().preference;
@@ -40,6 +41,7 @@ function getItem(
 const basePath = '/admin/:companyId';
 
 const AdminDashboardLayout = () => {
+  const signOut = useSignOut();
   const [isNewBusinessModalOpen, setIsNewBusinessModalOpen] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { companyId } = useParams();
@@ -79,7 +81,7 @@ const AdminDashboardLayout = () => {
       label: 'Your Profile',
       key: 'profile',
       onClick: () => {
-        // TODO: implement
+        navigate('/user/profile');
       },
     },
     {
@@ -87,7 +89,11 @@ const AdminDashboardLayout = () => {
       key: 'sign-out',
       danger: true,
       onClick: () => {
-        // TODO: implement
+        signOut.mutate({
+          extra: {
+            redirectTo: '/admin/auth/login',
+          },
+        });
       },
     },
   ] satisfies MenuProps['items'];

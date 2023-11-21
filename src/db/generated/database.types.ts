@@ -34,7 +34,194 @@ export interface Database {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      booking: {
+        Row: {
+          created_at: string
+          date: string
+          guest_metadata: Json | null
+          member_id: string
+          organization_id: number
+          time: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          guest_metadata?: Json | null
+          member_id: string
+          organization_id: number
+          time: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          guest_metadata?: Json | null
+          member_id?: string
+          organization_id?: number
+          time?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "booking_member_id_fkey"
+            columns: ["member_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "booking_organization_id_fkey"
+            columns: ["organization_id"]
+            referencedRelation: "organization"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "booking_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      membership: {
+        Row: {
+          joined_at: string
+          organization_id: number
+          role: Database["public"]["Enums"]["membership_role_enum"]
+          user_id: string
+        }
+        Insert: {
+          joined_at?: string
+          organization_id: number
+          role?: Database["public"]["Enums"]["membership_role_enum"]
+          user_id: string
+        }
+        Update: {
+          joined_at?: string
+          organization_id?: number
+          role?: Database["public"]["Enums"]["membership_role_enum"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "membership_organization_id_fkey"
+            columns: ["organization_id"]
+            referencedRelation: "organization"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "membership_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      organization: {
+        Row: {
+          created_at: string
+          created_by: string
+          id: number
+          name: string
+          private_metadata: Json | null
+          public_metadata: Json | null
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          id?: number
+          name: string
+          private_metadata?: Json | null
+          public_metadata?: Json | null
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          id?: number
+          name?: string
+          private_metadata?: Json | null
+          public_metadata?: Json | null
+          slug?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_created_by_fkey"
+            columns: ["created_by"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      profile: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          first_name: string
+          id: string
+          last_name: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          first_name: string
+          id: string
+          last_name: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      time_slot: {
+        Row: {
+          created_at: string
+          day_of_week: Database["public"]["Enums"]["day_of_week_enum"]
+          member_id: string
+          organization_id: number
+          time: string
+        }
+        Insert: {
+          created_at?: string
+          day_of_week: Database["public"]["Enums"]["day_of_week_enum"]
+          member_id: string
+          organization_id?: number
+          time: string
+        }
+        Update: {
+          created_at?: string
+          day_of_week?: Database["public"]["Enums"]["day_of_week_enum"]
+          member_id?: string
+          organization_id?: number
+          time?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "time_slot_member_id_fkey"
+            columns: ["member_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_slot_organization_id_fkey"
+            columns: ["organization_id"]
+            referencedRelation: "organization"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -43,7 +230,15 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      day_of_week_enum:
+        | "sunday"
+        | "monday"
+        | "tuesday"
+        | "wednesday"
+        | "thursday"
+        | "friday"
+        | "saturday"
+      membership_role_enum: "admin" | "basic_member"
     }
     CompositeTypes: {
       [_ in never]: never

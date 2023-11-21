@@ -14,3 +14,5 @@ export * from './settings';
 export * from './upload';
 export * from './user';
 export * from './users';
+export * from './google';
+export * from './apple';

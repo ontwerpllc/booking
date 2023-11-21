@@ -1,10 +1,14 @@
-import { Typography } from 'antd';
+import { Button, Divider, Typography } from 'antd';
 import { BrandIcon } from '~/components/brand-icon';
 import { RegisterForm } from './components/register-form';
+import { GoogleIcon, AppleIcon } from '~/icons';
+import { useSignInWithOAuth, useSignUp } from '~/api/hooks/auth';
 
 const { Title, Link } = Typography;
 
 const AdminRegister = () => {
+  const signUp = useSignUp();
+  const loginOAuth = useSignInWithOAuth();
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,10 +22,42 @@ const AdminRegister = () => {
 
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <RegisterForm
-            onSubmit={() => {
-              // TODO: Implement
+            onSubmit={(data) => {
+              signUp.mutate({
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                password: data.password,
+                extra: {
+                  redirectTo: '/admin/default/',
+                },
+              });
             }}
+            isLoading={signUp.isPending}
           />
+          <Divider />
+          <div className="flex gap-4">
+            <Button
+              block
+              icon={<GoogleIcon />}
+              onClick={() =>
+                loginOAuth.mutate({
+                  provider: 'google',
+                  extra: { redirectTo: '/admin/default/' },
+                })
+              }
+            />
+            <Button
+              block
+              icon={<AppleIcon />}
+              onClick={() =>
+                loginOAuth.mutate({
+                  provider: 'apple',
+                  extra: { redirectTo: '/admin/default/' },
+                })
+              }
+            />
+          </div>
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already a member?{' '}
