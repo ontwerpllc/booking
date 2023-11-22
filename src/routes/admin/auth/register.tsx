@@ -3,12 +3,17 @@ import { BrandIcon } from '~/components/brand-icon';
 import { RegisterForm } from './components/register-form';
 import { GoogleIcon, AppleIcon } from '~/icons';
 import { useSignInWithOAuth, useSignUp } from '~/api/hooks/auth';
+import { PATHS } from '~/constants/paths';
 
 const { Title, Link } = Typography;
 
 const AdminRegister = () => {
-  const signUp = useSignUp();
-  const loginOAuth = useSignInWithOAuth();
+  const signUp = useSignUp({
+    redirectTo: PATHS.admin.dashboard.index,
+  });
+  const loginOAuth = useSignInWithOAuth({
+    redirectTo: PATHS.admin.dashboard.index,
+  });
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -28,9 +33,6 @@ const AdminRegister = () => {
                 lastName: data.lastName,
                 email: data.email,
                 password: data.password,
-                extra: {
-                  redirectTo: '/admin/default/',
-                },
               });
             }}
             isLoading={signUp.isPending}
@@ -43,9 +45,9 @@ const AdminRegister = () => {
               onClick={() =>
                 loginOAuth.mutate({
                   provider: 'google',
-                  extra: { redirectTo: '/admin/default/' },
                 })
               }
+              loading={loginOAuth.isPending}
             />
             <Button
               block
@@ -53,9 +55,9 @@ const AdminRegister = () => {
               onClick={() =>
                 loginOAuth.mutate({
                   provider: 'apple',
-                  extra: { redirectTo: '/admin/default/' },
                 })
               }
+              loading={loginOAuth.isPending}
             />
           </div>
 

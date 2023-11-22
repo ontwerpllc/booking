@@ -1,6 +1,6 @@
 create table "public"."preference" (
     "id" uuid not null,
-    "active_organization_id" bigint not null,
+    "active_organization_id" bigint,
     "created_at" timestamp with time zone not null default now()
 );
 

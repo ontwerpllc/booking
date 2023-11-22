@@ -11,11 +11,11 @@ type FieldType = {
 type Props = {
   form?: FormInstance;
   onSubmit: SubmitEventHandler;
-  submitText?: string;
+  isLoading?: boolean;
 };
 
 export const LoginForm = (props: Props) => {
-  const { onSubmit, submitText = 'Sign in', form } = props;
+  const { onSubmit, form, isLoading } = props;
   return (
     <Form form={form} onFinish={onSubmit} layout="vertical">
       <Form.Item<FieldType>
@@ -35,8 +35,14 @@ export const LoginForm = (props: Props) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" block className="mt-2">
-          {submitText}
+        <Button
+          type="primary"
+          htmlType="submit"
+          block
+          className="mt-2"
+          loading={isLoading}
+        >
+          Sign in
         </Button>
       </Form.Item>
     </Form>

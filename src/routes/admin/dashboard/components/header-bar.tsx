@@ -1,30 +1,18 @@
-import type {
-  ButtonProps,
-  MenuProps} from 'antd';
-import {
-  Avatar,
-  Button,
-  Divider,
-  Dropdown,
-  theme,
-} from 'antd';
-import { getAccount } from '~/api/functions/getAccount';
+import type { ButtonProps } from 'antd';
+import { Button, Divider, theme } from 'antd';
+import { Profile } from '~/components/profile';
 import { BarsIcon } from '~/icons';
-
-const user = getAccount();
 
 const { useToken } = theme;
 
-type MenuItem = Required<MenuProps>['items'][number];
 type ButtonClickEventHandler = Required<ButtonProps>['onClick'];
 
 type Props = {
-  profileItems: MenuItem[];
   onSidebarOpen: ButtonClickEventHandler;
 };
 
 export const HeaderBar = (props: Props) => {
-  const { onSidebarOpen, profileItems } = props;
+  const { onSidebarOpen } = props;
   const { token } = useToken();
 
   return (
@@ -45,11 +33,7 @@ export const HeaderBar = (props: Props) => {
 
       <div className="ml-auto flex gap-x-4">
         <div className="flex items-center gap-x-4">
-          <Dropdown menu={{ items: profileItems }} arrow>
-            <Avatar className="select-none cursor-pointer">
-              {`${user.firstName[0]}${user.lastName[0]}`}
-            </Avatar>
-          </Dropdown>
+          <Profile />
         </div>
       </div>
     </div>

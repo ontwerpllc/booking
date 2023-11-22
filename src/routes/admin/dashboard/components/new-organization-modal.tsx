@@ -1,8 +1,8 @@
 import { Button, Form, Modal, Steps } from 'antd';
-import type { Dispatch} from 'react';
+import type { Dispatch } from 'react';
 import { useMemo, useState } from 'react';
 import { PlanCards } from './plan-cards';
-import { NewBusinessForm } from './new-business-form';
+import { NewOrganizationForm } from './new-organization-form';
 
 const { useForm } = Form;
 
@@ -11,29 +11,29 @@ type Props = {
   setIsModalOpen: Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const NewBusinessModal = (props: Props) => {
+export const NewOrganizationModal = (props: Props) => {
   const { setIsModalOpen, isModalOpen } = props;
   const [step, setStep] = useState(0);
-  const [businessInfoForm] = useForm();
+  const [form] = useForm();
   const [plan, setPlan] = useState<string>();
 
   const onCancel = () => {
     setIsModalOpen(false);
-    businessInfoForm.resetFields();
+    form.resetFields();
     setStep(0);
     setPlan(undefined);
   };
 
   const onSubmit = () => {
-    // TODO: Create business
+    // TODO: Create organization
   };
 
   const steps = useMemo(() => {
     return [
       {
         title: 'Info',
-        content: <NewBusinessForm form={businessInfoForm} />,
-        validate: async () => businessInfoForm.validateFields(),
+        content: <NewOrganizationForm form={form} />,
+        validate: async () => form.validateFields(),
       },
       {
         title: 'Plan',
@@ -45,7 +45,7 @@ export const NewBusinessModal = (props: Props) => {
         content: <div>Pay</div>,
       },
     ];
-  }, [businessInfoForm, plan]);
+  }, [form, plan]);
 
   const items = useMemo(() => {
     return steps.map((item) => ({ key: item.title, title: item.title }));
@@ -65,7 +65,7 @@ export const NewBusinessModal = (props: Props) => {
 
   return (
     <Modal
-      title="Create New Business"
+      title="Create New Organization"
       open={isModalOpen}
       onCancel={onCancel}
       footer={

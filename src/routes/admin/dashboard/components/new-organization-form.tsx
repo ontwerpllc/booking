@@ -1,16 +1,16 @@
-import type { FormInstance, FormProps} from 'antd';
+import type { FormInstance, FormProps } from 'antd';
 import { Col, Form, Input, Row } from 'antd';
 import { useRef } from 'react';
 
-type SubmitEventHandler = Required<FormProps>['onFinish'];
+type SubmitEventHandler = Required<FormProps<FieldType>>['onFinish'];
 
-export type FieldType = {
-  name?: string;
-  uid?: string;
-  street?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
+type FieldType = {
+  name: string;
+  uid: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
 };
 
 type Props = {
@@ -19,11 +19,11 @@ type Props = {
   submitText?: string;
 };
 
-export const NewBusinessForm = (props: Props) => {
+export const NewOrganizationForm = (props: Props) => {
   const { onSubmit, form } = props;
   const formRef = useRef<FormInstance>(null);
 
-  const onBusinessNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onOrganizationNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uid = e.target.value.toLowerCase().replace(/\s/g, '-');
     if (!formRef.current) return;
     formRef.current.setFieldsValue({
@@ -37,16 +37,16 @@ export const NewBusinessForm = (props: Props) => {
         <Row gutter={16}>
           <Col flex={2}>
             <Form.Item<FieldType>
-              label="Business Name"
+              label="Organization Name"
               name="name"
               rules={[
                 {
                   required: true,
-                  message: 'Please input your business name',
+                  message: 'Please input your organization name',
                 },
               ]}
             >
-              <Input onChange={onBusinessNameChange} />
+              <Input onChange={onOrganizationNameChange} />
             </Form.Item>
           </Col>
           <Col flex={1}>

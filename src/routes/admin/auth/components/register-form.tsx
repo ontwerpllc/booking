@@ -17,7 +17,6 @@ type FieldType = {
 type Props = {
   form?: FormInstance;
   onSubmit: SubmitEventHandler;
-  submitText?: string;
   isLoading?: boolean;
 };
 
@@ -94,7 +93,7 @@ function determinePasswordStrengthColor({
 }
 
 export const RegisterForm = (props: Props) => {
-  const { onSubmit, submitText = 'Sign up', form, isLoading } = props;
+  const { onSubmit, form, isLoading } = props;
   const { token } = useToken();
   const [passwordStrengthColor, setPasswordStrengthColor] = useState<string>(
     token.red,
@@ -210,7 +209,7 @@ export const RegisterForm = (props: Props) => {
           className="mt-2"
           loading={isLoading}
         >
-          {submitText}
+          Sign up
         </Button>
       </Form.Item>
     </Form>

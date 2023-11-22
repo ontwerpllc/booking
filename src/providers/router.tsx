@@ -1,31 +1,37 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  type RouteObject,
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom';
 import Index from '../routes';
 import Login from '../routes/auth/login';
 import Register from '../routes/auth/register';
 import NotFound from '../routes/not-found';
 import AdminLogin from '../routes/admin/auth/login';
 import AdminRegister from '../routes/admin/auth/register';
-import AdminDashboardIndex from '../routes/admin/[companyId]';
-import AdminDashboardLayout from '../routes/admin/[companyId]/layout';
-import AdminDashboardAnalytics from '../routes/admin/[companyId]/analytics';
-import AdminDashboardSettingsGeneral from '../routes/admin/[companyId]/settings/general';
-import AdminDashboardSettingsTimeSlots from '../routes/admin/[companyId]/settings/time-slots';
-import AdminDashboardCustomers from '../routes/admin/[companyId]/customers';
+import AdminDashboardIndex from '../routes/admin/dashboard';
+import AdminDashboardLayout from '../routes/admin/dashboard/layout';
+import AdminDashboardAnalytics from '../routes/admin/dashboard/analytics';
+import AdminDashboardSettingsGeneral from '../routes/admin/dashboard/settings/general';
+import AdminDashboardSettingsTimeSlots from '../routes/admin/dashboard/settings/time-slots';
+import AdminDashboardCustomers from '../routes/admin/dashboard/customers';
 import { ProtectedLayout } from '~/layouts/protected';
+import { useMemo } from 'react';
+import { PATHS } from '~/constants/paths';
 
-const router = createBrowserRouter([
+const routes = [
   {
-    path: '/',
+    path: PATHS.index,
     element: <Index />,
   },
   {
     children: [
       {
-        path: 'auth/login',
+        path: PATHS.auth.login,
         element: <Login />,
       },
       {
-        path: 'auth/register',
+        path: PATHS.auth.register,
         element: <Register />,
       },
     ],
@@ -33,38 +39,38 @@ const router = createBrowserRouter([
   {
     children: [
       {
-        path: 'admin/auth/login',
+        path: PATHS.admin.auth.login,
         element: <AdminLogin />,
       },
       {
-        path: 'admin/auth/register',
+        path: PATHS.admin.auth.register,
         element: <AdminRegister />,
       },
       {
         element: (
-          <ProtectedLayout redirect="/admin/auth/login">
+          <ProtectedLayout redirect={PATHS.admin.auth.login}>
             <AdminDashboardLayout />
           </ProtectedLayout>
         ),
         children: [
           {
-            path: 'admin/:companyId/',
+            path: PATHS.admin.dashboard.index,
             element: <AdminDashboardIndex />,
           },
           {
-            path: 'admin/:companyId/analytics',
+            path: PATHS.admin.dashboard.analytics,
             element: <AdminDashboardAnalytics />,
           },
           {
-            path: 'admin/:companyId/customers',
+            path: PATHS.admin.dashboard.customers,
             element: <AdminDashboardCustomers />,
           },
           {
-            path: 'admin/:companyId/settings/general',
+            path: PATHS.admin.dashboard.settings.general,
             element: <AdminDashboardSettingsGeneral />,
           },
           {
-            path: 'admin/:companyId/settings/time-slots',
+            path: PATHS.admin.dashboard.settings.timeSlots,
             element: <AdminDashboardSettingsTimeSlots />,
           },
         ],
@@ -75,6 +81,8 @@ const router = createBrowserRouter([
     path: '*',
     element: <NotFound />,
   },
-]);
+] satisfies RouteObject[];
 
-export const Router = () => <RouterProvider router={router} />;
+export const Router = () => (
+  <RouterProvider router={useMemo(() => createBrowserRouter(routes), [])} />
+);

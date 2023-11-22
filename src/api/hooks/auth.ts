@@ -5,136 +5,97 @@ import {
   type SignInWithPasswordCredentials,
 } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { type Path } from '~/constants/paths';
 
 export const useAuth = () => {
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const watch = api.auth.onAuthStateChange((event) => {
-      if (
-        event === 'SIGNED_IN' ||
-        event === 'TOKEN_REFRESHED' ||
-        event === 'SIGNED_OUT'
-      ) {
-        queryClient.invalidateQueries({ queryKey: ['session'] });
-        queryClient.invalidateQueries({ queryKey: ['user'] });
-      } else if (event === 'USER_UPDATED') {
-        queryClient.invalidateQueries({ queryKey: ['user'] });
-      }
-    });
-    return () => {
-      watch.data.subscription.unsubscribe();
-    };
-  }, [queryClient]);
-
   return useQuery({
     queryKey: ['session'],
     queryFn: async () => {
       const response = await api.auth.getSession();
-      const preferences = await api.from('preference').select('*').single();
       if (response.error) throw new Error(response.error.message);
-      return { ...response.data.session, preferences: preferences.data };
+      return response.data;
     },
   });
 };
 
-export const useSignInWithPassword = () => {
+export const useSignInWithPassword = (args: { redirectTo: Path }) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: async (
-      credentials: SignInWithPasswordCredentials & {
-        extra?: {
-          redirectTo?: string;
-        };
-      },
-    ) => {
+    mutationFn: async (credentials: SignInWithPasswordCredentials) => {
       const response = await api.auth.signInWithPassword(credentials);
       if (response.error) throw new Error(response.error.message);
-      return { ...response.data, extra: credentials.extra };
+      return response.data;
     },
-    onSuccess: (data) => {
-      queryClient.setQueryData(['session'], data.session);
-      queryClient.setQueryData(['user'], data.user);
-      if (data.extra?.redirectTo) navigate(data.extra?.redirectTo);
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ['session'],
+      });
+      navigate(args.redirectTo);
     },
   });
 };
 
-export const useSignInWithOAuth = () => {
+export const useSignInWithOAuth = (args: { redirectTo: Path }) => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: async (
-      credentials: SignInWithOAuthCredentials & {
-        extra?: {
-          redirectTo?: string;
-        };
-      },
-    ) => {
+    mutationFn: async (credentials: SignInWithOAuthCredentials) => {
       const response = await api.auth.signInWithOAuth(credentials);
       if (response.error) throw new Error(response.error.message);
-      return { ...response.data, extra: credentials.extra };
+      return response.data;
     },
-    onSuccess: (data) => {
-      if (data.extra?.redirectTo) navigate(data.extra?.redirectTo);
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ['session'],
+      });
+      navigate(args.redirectTo);
     },
   });
 };
 
 export const useSignOut = () => {
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (args: {
-      extra?: {
-        redirectTo?: string;
-      };
-    }) => {
+    mutationFn: async () => {
       const response = await api.auth.signOut();
       if (response.error) throw new Error(response.error.message);
-      return { extra: args?.extra };
     },
-    onSuccess: (data) => {
-      if (data.extra?.redirectTo) navigate(data.extra?.redirectTo);
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ['session'],
+      });
     },
   });
 };
 
-export const useSignUp = () => {
-  const queryClient = useQueryClient();
+export const useSignUp = (args: { redirectTo: Path }) => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: async (
       credentials: SignInWithPasswordCredentials & {
         firstName: string;
         lastName: string;
-        extra?: {
-          redirectTo?: string;
-        };
+        orgId?: number;
       },
     ) => {
       const response = await api.auth.signUp(credentials);
       if (response.error) throw new Error(response.error.message);
       if (response.data.user) {
-        await api
-          .from('profile')
-          .insert({
-            id: response.data.user.id,
-            first_name: credentials.firstName,
-            last_name: credentials.lastName,
-          })
-          .throwOnError();
-        await api
-          .from('preference')
-          .insert({ id: response.data.user.id })
-          .throwOnError();
+        await api.from('profile').insert({
+          id: response.data.user.id,
+          first_name: credentials.firstName,
+          last_name: credentials.lastName,
+        });
+        await api.from('preference').insert({
+          id: response.data.user.id,
+          active_organization_id: credentials.orgId,
+        });
       }
-      return { ...response.data, extra: credentials.extra };
+      return response.data;
     },
-    onSuccess: (data) => {
-      queryClient.setQueryData(['session'], data.session);
-      queryClient.setQueryData(['user'], data.user);
-      if (data.extra?.redirectTo) navigate(data.extra?.redirectTo);
+    onSuccess: () => {
+      navigate(args.redirectTo);
     },
   });
 };

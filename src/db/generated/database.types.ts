@@ -154,6 +154,37 @@ export interface Database {
           }
         ]
       }
+      preference: {
+        Row: {
+          active_organization_id: number | null
+          created_at: string
+          id: string
+        }
+        Insert: {
+          active_organization_id?: number | null
+          created_at?: string
+          id: string
+        }
+        Update: {
+          active_organization_id?: number | null
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "preference_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "preference_organization_id_fkey"
+            columns: ["active_organization_id"]
+            referencedRelation: "organization"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       profile: {
         Row: {
           avatar_url: string | null
@@ -184,6 +215,21 @@ export interface Database {
             referencedColumns: ["id"]
           }
         ]
+      }
+      test_tenant: {
+        Row: {
+          details: string | null
+          id: number
+        }
+        Insert: {
+          details?: string | null
+          id?: number
+        }
+        Update: {
+          details?: string | null
+          id?: number
+        }
+        Relationships: []
       }
       time_slot: {
         Row: {

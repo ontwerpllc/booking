@@ -3,12 +3,17 @@ import { LoginForm } from './components/login-form';
 import { Button, Divider, Typography } from 'antd';
 import { AppleIcon, GoogleIcon } from '~/icons';
 import { useSignInWithOAuth, useSignInWithPassword } from '~/api/hooks/auth';
+import { PATHS } from '~/constants/paths';
 
 const { Title, Link } = Typography;
 
 const AdminLogin = () => {
-  const loginMutation = useSignInWithPassword();
-  const loginOAuth = useSignInWithOAuth();
+  const loginMutation = useSignInWithPassword({
+    redirectTo: PATHS.admin.dashboard.index,
+  });
+  const loginOAuth = useSignInWithOAuth({
+    redirectTo: PATHS.admin.dashboard.index,
+  });
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -25,11 +30,9 @@ const AdminLogin = () => {
               loginMutation.mutate({
                 email: data.email,
                 password: data.password,
-                extra: {
-                  redirectTo: '/admin/default/',
-                },
               })
             }
+            isLoading={loginMutation.isPending}
           />
           <Divider />
           <div className="flex gap-4">
@@ -39,11 +42,9 @@ const AdminLogin = () => {
               onClick={() =>
                 loginOAuth.mutate({
                   provider: 'google',
-                  extra: {
-                    redirectTo: '/admin/default/',
-                  },
                 })
               }
+              loading={loginOAuth.isPending}
             />
             <Button
               block
@@ -51,11 +52,9 @@ const AdminLogin = () => {
               onClick={() =>
                 loginOAuth.mutate({
                   provider: 'apple',
-                  extra: {
-                    redirectTo: '/admin/default/',
-                  },
                 })
               }
+              loading={loginOAuth.isPending}
             />
           </div>
 
