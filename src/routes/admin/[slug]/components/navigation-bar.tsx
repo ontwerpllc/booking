@@ -62,12 +62,16 @@ export const NavigationBar = (props: Props) => {
 
   const onMenuSelectWrapper = (item: MenuItem) => {
     if (!item?.key || !organization.data) return;
-    navigate(`${item.key}`);
     onClosableAction?.();
+    navigate({
+      pathname: item.key.toString(),
+      search: params.query,
+    });
   };
 
   const onOrganizationSelect = (value: string) => {
     params.set('org', value);
+    onClosableAction?.();
   };
 
   return (
