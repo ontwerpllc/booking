@@ -1,0 +1,1 @@
+create type "public"."membership_role_enum" as enum ('admin', 'basic_member');
