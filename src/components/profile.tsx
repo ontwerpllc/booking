@@ -2,7 +2,7 @@ import { Dropdown, Avatar } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useSignOut } from '~/api/hooks/auth';
 import { useProfile } from '~/api/hooks/user';
-import { PATHS } from '~/constants/paths';
+import { PATH } from '~/constants/paths';
 import { getInitials } from '~/lib/utils';
 
 export const Profile = () => {
@@ -19,7 +19,7 @@ export const Profile = () => {
             label: 'Your Profile',
             key: 'profile',
             onClick: () => {
-              navigate(PATHS.user.profile);
+              navigate(PATH.user.profile);
             },
           },
           {

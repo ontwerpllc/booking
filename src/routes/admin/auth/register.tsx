@@ -3,16 +3,16 @@ import { BrandIcon } from '~/components/brand-icon';
 import { RegisterForm } from './components/register-form';
 import { GoogleIcon, AppleIcon } from '~/icons';
 import { useSignInWithOAuth, useSignUp } from '~/api/hooks/auth';
-import { PATHS } from '~/constants/paths';
+import { PATH } from '~/constants/paths';
 
 const { Title, Link } = Typography;
 
 const AdminRegister = () => {
   const signUp = useSignUp({
-    redirectTo: PATHS.admin.dashboard.index,
+    redirectTo: PATH.admin.dashboard.index,
   });
   const loginOAuth = useSignInWithOAuth({
-    redirectTo: PATHS.admin.dashboard.index,
+    redirectTo: PATH.admin.dashboard.index,
   });
   return (
     <>

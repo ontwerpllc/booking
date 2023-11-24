@@ -87,10 +87,6 @@ export const useSignUp = (args: { redirectTo: Path }) => {
           first_name: credentials.firstName,
           last_name: credentials.lastName,
         });
-        await api.from('preference').insert({
-          id: response.data.user.id,
-          active_organization_id: credentials.orgId,
-        });
       }
       return response.data;
     },

@@ -9,29 +9,30 @@ import Register from '../routes/auth/register';
 import NotFound from '../routes/not-found';
 import AdminLogin from '../routes/admin/auth/login';
 import AdminRegister from '../routes/admin/auth/register';
-import AdminDashboardIndex from '../routes/admin/dashboard';
-import AdminDashboardLayout from '../routes/admin/dashboard/layout';
-import AdminDashboardAnalytics from '../routes/admin/dashboard/analytics';
-import AdminDashboardSettingsGeneral from '../routes/admin/dashboard/settings/general';
-import AdminDashboardSettingsTimeSlots from '../routes/admin/dashboard/settings/time-slots';
-import AdminDashboardCustomers from '../routes/admin/dashboard/customers';
-import { ProtectedLayout } from '~/layouts/protected';
+import AdminDashboardIndex from '../routes/admin/[slug]';
+import AdminDashboardLayout from '../routes/admin/[slug]/layout';
+import AdminDashboardAnalytics from '../routes/admin/[slug]/analytics';
+import AdminDashboardSettingsGeneral from '../routes/admin/[slug]/settings/general';
+import AdminDashboardSettingsTimeSlots from '../routes/admin/[slug]/settings/time-slots';
+import AdminDashboardCustomers from '../routes/admin/[slug]/customers';
+import { AuthProtected } from '~/guards/protected';
 import { useMemo } from 'react';
-import { PATHS } from '~/constants/paths';
+import { PATH } from '~/constants/paths';
+import { DefaultOrgProtected } from '~/guards/default-slug';
 
 const routes = [
   {
-    path: PATHS.index,
+    path: PATH.index,
     element: <Index />,
   },
   {
     children: [
       {
-        path: PATHS.auth.login,
+        path: PATH.auth.login,
         element: <Login />,
       },
       {
-        path: PATHS.auth.register,
+        path: PATH.auth.register,
         element: <Register />,
       },
     ],
@@ -39,38 +40,40 @@ const routes = [
   {
     children: [
       {
-        path: PATHS.admin.auth.login,
+        path: PATH.admin.auth.login,
         element: <AdminLogin />,
       },
       {
-        path: PATHS.admin.auth.register,
+        path: PATH.admin.auth.register,
         element: <AdminRegister />,
       },
       {
         element: (
-          <ProtectedLayout redirect={PATHS.admin.auth.login}>
-            <AdminDashboardLayout />
-          </ProtectedLayout>
+          <AuthProtected redirect={PATH.admin.auth.login}>
+            <DefaultOrgProtected>
+              <AdminDashboardLayout />
+            </DefaultOrgProtected>
+          </AuthProtected>
         ),
         children: [
           {
-            path: PATHS.admin.dashboard.index,
+            path: PATH.admin.dashboard.index,
             element: <AdminDashboardIndex />,
           },
           {
-            path: PATHS.admin.dashboard.analytics,
+            path: PATH.admin.dashboard.analytics,
             element: <AdminDashboardAnalytics />,
           },
           {
-            path: PATHS.admin.dashboard.customers,
+            path: PATH.admin.dashboard.customers,
             element: <AdminDashboardCustomers />,
           },
           {
-            path: PATHS.admin.dashboard.settings.general,
+            path: PATH.admin.dashboard.settings.general,
             element: <AdminDashboardSettingsGeneral />,
           },
           {
-            path: PATHS.admin.dashboard.settings.timeSlots,
+            path: PATH.admin.dashboard.settings.timeSlots,
             element: <AdminDashboardSettingsTimeSlots />,
           },
         ],

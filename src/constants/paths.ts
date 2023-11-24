@@ -1,6 +1,7 @@
-import type { LeafValues } from '~/constants/types';
+import type { LeafValues, ObjectPaths, Paths } from '~/constants/types';
+import type { Get, KeysOfUnion } from 'type-fest';
 
-export const PATHS = {
+export const PATH = {
   index: '/',
   auth: {
     login: '/auth/login',
@@ -26,4 +27,21 @@ export const PATHS = {
   },
 } as const;
 
-export type Path = LeafValues<typeof PATHS>;
+export type Path = LeafValues<typeof PATH>;
+
+const PATH_PARAM = {
+  admin: {
+    dashboard: {
+      org: 'org',
+    },
+  },
+} as const;
+
+export type PathParam = Exclude<
+  Paths<typeof PATH_PARAM>,
+  ObjectPaths<typeof PATH_PARAM>
+>;
+
+export type PathParamValues<P extends PathParam> = KeysOfUnion<
+  Get<typeof PATH_PARAM, P>
+>;

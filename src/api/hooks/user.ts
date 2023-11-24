@@ -14,17 +14,6 @@ export const useMemberships = () => {
   });
 };
 
-export const usePreference = () => {
-  return useQuery({
-    queryKey: ['preference'],
-    queryFn: async () => {
-      const response = await api.from('preference').select('*').single();
-      if (response.error) throw new Error(response.error.message);
-      return response.data;
-    },
-  });
-};
-
 export const useProfile = () => {
   return useQuery({
     queryKey: ['profile'],

@@ -3,16 +3,16 @@ import { LoginForm } from './components/login-form';
 import { Button, Divider, Typography } from 'antd';
 import { AppleIcon, GoogleIcon } from '~/icons';
 import { useSignInWithOAuth, useSignInWithPassword } from '~/api/hooks/auth';
-import { PATHS } from '~/constants/paths';
+import { PATH } from '~/constants/paths';
 
 const { Title, Link } = Typography;
 
 const AdminLogin = () => {
   const loginMutation = useSignInWithPassword({
-    redirectTo: PATHS.admin.dashboard.index,
+    redirectTo: PATH.admin.dashboard.index,
   });
   const loginOAuth = useSignInWithOAuth({
-    redirectTo: PATHS.admin.dashboard.index,
+    redirectTo: PATH.admin.dashboard.index,
   });
   return (
     <>

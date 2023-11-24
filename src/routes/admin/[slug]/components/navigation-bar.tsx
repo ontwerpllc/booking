@@ -12,11 +12,12 @@ import { useState } from 'react';
 import { env } from '~/lib/env';
 import { PlanModal } from './plan-modal';
 import { BrandIcon } from '~/components/brand-icon';
-import { useOrganization, useSetActiveOrganization } from '~/api/hooks/org';
+import { useOrganization } from '~/api/hooks/org';
 import { useMemberships } from '~/api/hooks/user';
 import { BookingIcon, AnalyticsIcon, UsersIcon, SettingsIcon } from '~/icons';
-import { PATHS } from '~/constants/paths';
+import { PATH } from '~/constants/paths';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTypedSearchParams } from '~/hooks/useTypedSearchParams';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -46,8 +47,8 @@ type Props = {
 
 export const NavigationBar = (props: Props) => {
   const { onClosableAction } = props;
-  const setActiveOrganization = useSetActiveOrganization();
-  const organization = useOrganization();
+  const params = useTypedSearchParams<'admin.dashboard'>();
+  const organization = useOrganization({ slug: params.get('org') });
   const memberships = useMemberships();
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,13 +61,13 @@ export const NavigationBar = (props: Props) => {
   };
 
   const onMenuSelectWrapper = (item: MenuItem) => {
-    if (!item?.key) return;
+    if (!item?.key || !organization.data) return;
     navigate(`${item.key}`);
     onClosableAction?.();
   };
 
-  const onOrganizationSelect = (value: number) => {
-    setActiveOrganization.mutate({ organizationId: value });
+  const onOrganizationSelect = (value: string) => {
+    params.set('org', value);
   };
 
   return (
@@ -88,9 +89,9 @@ export const NavigationBar = (props: Props) => {
             onSelect={onOrganizationSelect}
             options={memberships.data?.map((membership) => ({
               label: membership.organization?.name,
-              value: membership.organization?.id,
+              value: membership.organization?.slug,
             }))}
-            value={organization?.data?.id}
+            value={organization?.data?.slug}
             loading={memberships.isLoading}
           />
         </div>
@@ -105,17 +106,17 @@ export const NavigationBar = (props: Props) => {
               [
                 getItem(
                   'Bookings',
-                  PATHS.admin.dashboard.index,
+                  PATH.admin.dashboard.index,
                   <BookingIcon />,
                 ),
                 getItem(
                   'Analytics',
-                  PATHS.admin.dashboard.analytics,
+                  PATH.admin.dashboard.analytics,
                   <AnalyticsIcon />,
                 ),
                 getItem(
                   'Customers',
-                  PATHS.admin.dashboard.customers,
+                  PATH.admin.dashboard.customers,
                   <UsersIcon />,
                 ),
               ],
@@ -128,10 +129,10 @@ export const NavigationBar = (props: Props) => {
               null,
               [
                 getItem('Settings', 'settings', <SettingsIcon />, [
-                  getItem('General', PATHS.admin.dashboard.settings.general),
+                  getItem('General', PATH.admin.dashboard.settings.general),
                   getItem(
                     'Time Slots',
-                    PATHS.admin.dashboard.settings.timeSlots,
+                    PATH.admin.dashboard.settings.timeSlots,
                   ),
                 ]),
               ],
