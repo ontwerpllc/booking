@@ -96,7 +96,7 @@ export const NavigationBar = (props: Props) => {
               value: membership.organization?.slug,
             }))}
             value={organization?.data?.slug}
-            loading={memberships.isLoading}
+            loading={memberships.isLoading || organization.isLoading}
           />
         </div>
         <Menu
