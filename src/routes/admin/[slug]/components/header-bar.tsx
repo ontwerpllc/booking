@@ -1,6 +1,7 @@
 import type { ButtonProps } from 'antd';
-import { Button, Divider, theme } from 'antd';
+import { Button, Divider, Space, theme } from 'antd';
 import { Profile } from '~/components/profile';
+import { ThemeChanger } from '~/components/theme-changer';
 import { BarsIcon } from '~/icons';
 
 const { useToken } = theme;
@@ -20,7 +21,7 @@ export const HeaderBar = (props: Props) => {
       className="flex h-16 items-center gap-x-4 border-b px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-4 lg:shadow-none"
       style={{
         borderColor: token.colorBorderSecondary,
-        backgroundColor: token.colorBgBase,
+        backgroundColor: token.colorBgContainer,
       }}
     >
       <Button
@@ -31,11 +32,10 @@ export const HeaderBar = (props: Props) => {
 
       <Divider type="vertical" className="h-6 lg:hidden" aria-hidden="true" />
 
-      <div className="ml-auto flex gap-x-4">
-        <div className="flex items-center gap-x-4">
-          <Profile />
-        </div>
-      </div>
+      <Space className="ml-auto" size={'middle'}>
+        <ThemeChanger />
+        <Profile />
+      </Space>
     </div>
   );
 };

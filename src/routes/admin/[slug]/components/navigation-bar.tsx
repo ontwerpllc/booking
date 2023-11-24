@@ -76,32 +76,33 @@ export const NavigationBar = (props: Props) => {
 
   return (
     <div
-      className="flex flex-col justify-between h-full"
-      style={{ backgroundColor: token.colorBgBase }}
+      className="flex flex-col justify-between h-full px-4 py-4"
+      style={{ backgroundColor: token.colorBgContainer }}
     >
       <div>
-        <div className="flex my-4 shrink-0 items-center mx-4 gap-2">
-          <BrandIcon className="h-8 w-auto" />
-          <Typography.Text className="text-2xl font-semibold uppercase">
-            {env.BRAND_NAME}
-          </Typography.Text>
-        </div>
         <div className="mx-4">
-          <Select
-            className="w-full"
-            placeholder="Select an organization"
-            onSelect={onOrganizationSelect}
-            options={memberships.data?.map((membership) => ({
-              label: membership.organization?.name,
-              value: membership.organization?.slug,
-            }))}
-            value={organization?.data?.slug}
-            loading={memberships.isLoading || organization.isLoading}
-          />
+          <div className="flex mb-4 shrink-0 items-center gap-2">
+            <BrandIcon className="h-8 w-auto" />
+            <Typography.Text className="text-2xl font-semibold uppercase">
+              {env.BRAND_NAME}
+            </Typography.Text>
+          </div>
+          <div>
+            <Select
+              className="w-full"
+              placeholder="Select an organization"
+              onSelect={onOrganizationSelect}
+              options={memberships.data?.map((membership) => ({
+                label: membership.organization?.name,
+                value: membership.organization?.slug,
+              }))}
+              value={organization?.data?.slug}
+              loading={memberships.isLoading || organization.isLoading}
+            />
+          </div>
         </div>
         <Menu
           className="mt-4"
-          mode="inline"
           items={[
             getItem(
               'Shortcuts',
@@ -149,7 +150,7 @@ export const NavigationBar = (props: Props) => {
           selectedKeys={[location.pathname]}
         />
       </div>
-      <div className="mt-auto mx-4">
+      <div className="mt-auto">
         <Divider />
         <div className="flex items-center justify-between">
           <div className="flex flex-col">

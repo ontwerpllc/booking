@@ -19,6 +19,7 @@ import { AuthProtected } from '~/guards/protected';
 import { useMemo } from 'react';
 import { PATH } from '~/constants/paths';
 import { DefaultOrgProtected } from '~/guards/default-slug';
+import { theme } from 'antd';
 
 const routes = [
   {
@@ -86,6 +87,11 @@ const routes = [
   },
 ] satisfies RouteObject[];
 
-export const Router = () => (
-  <RouterProvider router={useMemo(() => createBrowserRouter(routes), [])} />
-);
+export const Router = () => {
+  const { token } = theme.useToken();
+  return (
+    <div className="h-full" style={{ backgroundColor: token.colorBgContainer }}>
+      <RouterProvider router={useMemo(() => createBrowserRouter(routes), [])} />
+    </div>
+  );
+};

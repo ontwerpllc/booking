@@ -33,6 +33,7 @@ export const Profile = () => {
         ],
       }}
       arrow
+      placement="bottomRight"
     >
       <Avatar className="select-none cursor-pointer">
         {getInitials(`${profile.data?.first_name} ${profile.data?.last_name}`)}

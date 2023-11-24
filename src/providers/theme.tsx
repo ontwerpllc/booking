@@ -1,16 +1,5 @@
-import type { ThemeConfig } from 'antd';
-import { ConfigProvider } from 'antd';
-
-const theme = {
-  token: {
-    colorPrimary: '#3b1cb5',
-  },
-  components: {
-    Menu: {
-      activeBarBorderWidth: 0,
-    },
-  },
-} satisfies ThemeConfig;
+import { ConfigProvider, theme } from 'antd';
+import { useTheme } from '~/hooks/useTheme';
 
 type Props = {
   children: React.ReactNode;
@@ -18,5 +7,25 @@ type Props = {
 
 export const ThemeProvider = (props: Props) => {
   const { children } = props;
-  return <ConfigProvider theme={theme}>{children}</ConfigProvider>;
+  const { theme: currentTheme } = useTheme();
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm:
+          currentTheme === 'light'
+            ? theme.defaultAlgorithm
+            : theme.darkAlgorithm,
+        token: {
+          colorPrimary: '#3b1cb5',
+        },
+        components: {
+          Menu: {
+            activeBarBorderWidth: 0,
+          },
+        },
+      }}
+    >
+      {children}
+    </ConfigProvider>
+  );
 };
