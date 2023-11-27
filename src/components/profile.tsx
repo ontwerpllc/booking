@@ -2,7 +2,7 @@ import { Dropdown, Avatar } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useSignOut } from '~/api/hooks/auth';
 import { useProfile } from '~/api/hooks/user';
-import { PATH } from '~/constants/paths';
+import { PATH } from '~/lib/paths';
 import { getInitials } from '~/lib/utils';
 
 export const Profile = () => {

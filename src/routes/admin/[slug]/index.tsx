@@ -1,50 +1,38 @@
-import {
-  Button,
-  Card,
-  Col,
-  DatePicker,
-  Drawer,
-  Row,
-  Space,
-  Typography,
-} from 'antd';
+import { Space, Row, Col, DatePicker, Card, Drawer } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { getAccountName } from '~/api/functions/getAccountName';
-import { getBookings } from '~/api/functions/getBookings';
-import { getBusiness } from '~/api/functions/getBusiness';
-import type { Account } from '~/api/types/account';
+import { useOrganization } from '~/api/hooks/org';
 import type { Booking } from '~/api/types/booking';
-import type { TimeSlot } from '~/api/types/time-slot';
-import { PlusSmallIcon } from '~/icons/plus-small';
-
-const { Text } = Typography;
+import { useTypedSearchParams } from '~/hooks/useTypedSearchParams';
 
 const AdminDashboardIndex = () => {
-  const { companyId } = useParams();
+  const params = useTypedSearchParams<'admin.dashboard'>();
+  const organization = useOrganization({ slug: params.get('org') });
   const [selectedBooking, setSelectedBooking] = useState<Booking>();
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<{
-    timeSlot: TimeSlot;
-    member: Account;
-  }>();
+  // const [selectedTimeSlot, setSelectedTimeSlot] = useState<{
+  //   timeSlot: TimeSlot;
+  //   member: Account;
+  // }>();
   const [isBookingDetailsOpen, setIsBookingDetailsOpen] = useState(false);
   const [isAddBookingOpen, setIsAddBookingOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
-  const onBookingSelect = (booking?: Booking) => {
-    setSelectedBooking(booking);
-    onBookingDetailsOpen();
-  };
+  // const onBookingSelect = (booking?: Booking) => {
+  //   setSelectedBooking(booking);
+  //   onBookingDetailsOpen();
+  // };
 
-  const onAddBookingSelect = (timeSlot: TimeSlot, member: Account) => {
-    setIsAddBookingOpen(true);
-    setSelectedTimeSlot({ timeSlot, member });
-  };
+  // const onAddBookingSelect = (timeSlot: TimeSlot, member: Account) => {
+  //   setIsAddBookingOpen(true);
+  //   setSelectedTimeSlot({ timeSlot, member });
+  // };
 
-  const onBookingDetailsOpen = () => {
-    setIsBookingDetailsOpen(true);
-  };
+  // const onBookingDetailsOpen = () => {
+  //   setIsBookingDetailsOpen(true);
+  // };
+
+  console.log(selectedDate);
 
   const onBookingDetailsClose = () => {
     setSelectedBooking(undefined);
@@ -56,13 +44,9 @@ const AdminDashboardIndex = () => {
     setIsAddBookingOpen(false);
   };
 
-  const business = getBusiness({ businessUid: companyId });
-  const members = business?.members ?? [];
-  const timeSlots = business?.timeSlots ?? [];
-
   return (
     <>
-      <Space direction="vertical" className="w-full">
+      <Space direction="vertical" className="w-full" size={'middle'}>
         <Row gutter={[16, 6]}>
           <Col>
             <DatePicker
@@ -72,10 +56,13 @@ const AdminDashboardIndex = () => {
             />
           </Col>
         </Row>
-        {members.map((member) => (
-          <Card title={getAccountName(member)} key={member.id}>
+        {organization.data?.members?.map((member) => (
+          <Card
+            title={`${member?.first_name} ${member?.last_name}`}
+            key={member?.id}
+          >
             <Row gutter={[12, 12]}>
-              {timeSlots.map((timeSlot) => {
+              {/* {[].map((timeSlot) => {
                 const bookings = getBookings(
                   selectedDate.format('YYYY-MM-DD'),
                   member.id,
@@ -86,7 +73,7 @@ const AdminDashboardIndex = () => {
 
                 return (
                   <Col className="w-32 text-center" key={timeSlot.id}>
-                    <Text>{timeSlot.time}</Text>
+                    <Typography.Text>{timeSlot.time}</Typography.Text>
                     <Button
                       type={taken ? 'primary' : 'dashed'}
                       className={`grid items-center text-center w-full h-fit`}
@@ -112,7 +99,7 @@ const AdminDashboardIndex = () => {
                     </Button>
                   </Col>
                 );
-              })}
+              })} */}
             </Row>
           </Card>
         ))}
@@ -135,9 +122,9 @@ const AdminDashboardIndex = () => {
         onClose={onAddBookingClose}
         open={isAddBookingOpen}
       >
-        {selectedTimeSlot?.member
+        {/* {selectedTimeSlot?.member
           ? getAccountName(selectedTimeSlot?.member)
-          : null}
+          : null} */}
       </Drawer>
     </>
   );

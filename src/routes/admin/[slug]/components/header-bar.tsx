@@ -2,7 +2,7 @@ import type { ButtonProps } from 'antd';
 import { Button, Divider, Space, theme } from 'antd';
 import { Profile } from '~/components/profile';
 import { ThemeChanger } from '~/components/theme-changer';
-import { BarsIcon } from '~/icons';
+import { BarsIcon } from '~/components/icons';
 
 const { useToken } = theme;
 

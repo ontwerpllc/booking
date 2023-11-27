@@ -5,7 +5,7 @@ import {
   type SignInWithPasswordCredentials,
 } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
-import { type Path } from '~/constants/paths';
+import { type Path } from '~/lib/paths';
 
 export const useAuth = () => {
   return useQuery({

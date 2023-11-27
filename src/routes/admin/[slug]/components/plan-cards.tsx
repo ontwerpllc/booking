@@ -9,7 +9,7 @@ import {
   Button,
 } from 'antd';
 import { getPlans } from '~/api/functions/getPlans';
-import { CheckIcon } from '~/icons';
+import { CheckIcon } from '~/components/icons';
 import { cn } from '~/lib/utils';
 
 const { Text } = Typography;

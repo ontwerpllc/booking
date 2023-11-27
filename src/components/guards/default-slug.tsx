@@ -22,7 +22,7 @@ export const DefaultOrgProtected = (props: Props) => {
     );
   }
   if (!memberships?.data?.length) {
-    return <NotFound />;
+    return children;
   }
   if (!params.get('org')) {
     const slug = memberships.data[0].organization?.slug;

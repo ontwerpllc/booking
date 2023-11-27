@@ -14,8 +14,13 @@ import { PlanModal } from './plan-modal';
 import { BrandIcon } from '~/components/brand-icon';
 import { useOrganization } from '~/api/hooks/org';
 import { useMemberships } from '~/api/hooks/user';
-import { BookingIcon, AnalyticsIcon, UsersIcon, SettingsIcon } from '~/icons';
-import { PATH } from '~/constants/paths';
+import {
+  BookingIcon,
+  AnalyticsIcon,
+  UsersIcon,
+  SettingsIcon,
+} from '~/components/icons';
+import { PATH } from '~/lib/paths';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTypedSearchParams } from '~/hooks/useTypedSearchParams';
 
@@ -61,7 +66,7 @@ export const NavigationBar = (props: Props) => {
   };
 
   const onMenuSelectWrapper = (item: MenuItem) => {
-    if (!item?.key || !organization.data) return;
+    if (!item?.key) return;
     onClosableAction?.();
     navigate({
       pathname: item.key.toString(),
@@ -150,24 +155,32 @@ export const NavigationBar = (props: Props) => {
           selectedKeys={[location.pathname]}
         />
       </div>
+
       <div className="mt-auto">
-        <Divider />
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col">
-            <Typography.Text>{/** TODO: Add data */}</Typography.Text>
-            {memberships.isLoading ? (
-              <Skeleton paragraph={false} active />
-            ) : (
-              <Typography.Text type="secondary">
-                {/** TODO: Add data */}
-              </Typography.Text>
-            )}
+        {organization.data && (
+          <div>
+            <Divider />
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col">
+                <Typography.Text>{/** TODO: Add data */}</Typography.Text>
+                {memberships.isLoading ? (
+                  <Skeleton paragraph={false} active />
+                ) : (
+                  <Typography.Text type="secondary">
+                    {/** TODO: Add data */}
+                  </Typography.Text>
+                )}
+              </div>
+              <Button
+                disabled={memberships.isLoading}
+                onClick={onPlanModalOpen}
+              >
+                Modify
+              </Button>
+            </div>
+            <Divider />
           </div>
-          <Button disabled={memberships.isLoading} onClick={onPlanModalOpen}>
-            Modify
-          </Button>
-        </div>
-        <Divider />
+        )}
         <div>
           <Typography.Text type="secondary">
             Version {env.APP_VERSION}

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { type PathParamValues, type PathParam } from '~/constants/paths';
+import { type PathParamValues, type PathParam } from '~/lib/paths';
 
 export const useTypedSearchParams = <P extends PathParam>() => {
   const [searchParams, setSearchParams] = useSearchParams();

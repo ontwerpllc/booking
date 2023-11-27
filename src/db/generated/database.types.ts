@@ -185,6 +185,37 @@ export interface Database {
           }
         ]
       }
+      public_member: {
+        Row: {
+          created_at: string
+          organization_id: number
+          profile_id: string
+        }
+        Insert: {
+          created_at?: string
+          organization_id: number
+          profile_id: string
+        }
+        Update: {
+          created_at?: string
+          organization_id?: number
+          profile_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_member_organization_id_fkey"
+            columns: ["organization_id"]
+            referencedRelation: "organization"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_member_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       test_tenant: {
         Row: {
           details: string | null

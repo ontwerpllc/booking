@@ -1,7 +1,7 @@
 import { Spin } from 'antd';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '~/api/hooks/auth';
-import { type Path } from '~/constants/paths';
+import { type Path } from '~/lib/paths';
 
 type Props = {
   redirect: Path;

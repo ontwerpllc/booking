@@ -1,6 +1,7 @@
 create table "public"."membership" (
     "user_id" uuid not null,
     "organization_id" bigint not null,
+    "profile_id" uuid not null,
     "role" membership_role_enum not null default 'basic_member'::membership_role_enum,
     "joined_at" timestamp with time zone not null default now()
 );

@@ -8,11 +8,14 @@ export const useOrganization = ({ slug }: { slug: string | null }) => {
       if (!slug) throw new Error('Slug is required');
       const response = await api
         .from('organization')
-        .select('*')
+        .select('*, members:public_member( profile(*) )')
         .eq('slug', slug)
         .single();
       if (response.error) throw new Error(response.error.message);
-      return response.data;
+      return {
+        ...response.data,
+        members: response.data.members.map((member) => member.profile),
+      };
     },
     enabled: !!slug,
   });

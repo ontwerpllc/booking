@@ -1,4 +1,4 @@
-import type { LeafValues, ObjectPaths, Paths } from '~/constants/types';
+import type { LeafValues, ObjectPaths, Paths } from '~/lib/types';
 import type { Get, KeysOfUnion } from 'type-fest';
 
 export const PATH = {

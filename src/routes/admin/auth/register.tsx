@@ -1,9 +1,9 @@
 import { Button, Divider, Typography } from 'antd';
 import { BrandIcon } from '~/components/brand-icon';
 import { RegisterForm } from './components/register-form';
-import { GoogleIcon, AppleIcon } from '~/icons';
+import { GoogleIcon, AppleIcon } from '~/components/icons';
 import { useSignInWithOAuth, useSignUp } from '~/api/hooks/auth';
-import { PATH } from '~/constants/paths';
+import { PATH } from '~/lib/paths';
 
 const { Title, Link } = Typography;
 

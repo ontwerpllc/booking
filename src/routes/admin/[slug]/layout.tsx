@@ -4,7 +4,7 @@ import { Button, Drawer, Empty, theme } from 'antd';
 
 import { useState } from 'react';
 
-import { PlusSmallIcon } from '~/icons/plus-small';
+import { PlusSmallIcon } from '~/components/icons/plus-small';
 import { HeaderBar } from './components/header-bar';
 import { NavigationBar } from './components/navigation-bar';
 import { NewOrganizationModal } from './components/new-organization-modal';
