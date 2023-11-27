@@ -1,6 +1,6 @@
 import { Button, Dropdown } from 'antd';
 import { useTheme } from '~/hooks/useTheme';
-import { DarkModeIcon, LightModeIcon } from '~/components/icons/theme';
+import { DarkModeIcon, LightModeIcon } from './icons';
 
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();

@@ -1,7 +1,7 @@
 import Icon from '@ant-design/icons';
 import type { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
-const Svg = () => (
+export const AppleSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -14,5 +14,5 @@ const Svg = () => (
 );
 
 export const AppleIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={Svg} {...props} />
+  <Icon component={AppleSvg} {...props} />
 );

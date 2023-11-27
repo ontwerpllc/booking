@@ -1,7 +1,7 @@
 import Icon from '@ant-design/icons';
 import type { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
-const OfficeSvg = () => (
+export const OfficeSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

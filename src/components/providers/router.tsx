@@ -16,9 +16,10 @@ import AdminDashboardSettingsGeneral from '../../routes/admin/[slug]/settings/ge
 import AdminDashboardSettingsTimeSlots from '../../routes/admin/[slug]/settings/time-slots';
 import AdminDashboardCustomers from '../../routes/admin/[slug]/customers';
 import { AuthProtected } from '~/components/guards/protected';
+import { DefaultOrgProtected } from '~/components/guards/default-slug';
 import { useMemo } from 'react';
 import { PATH } from '~/lib/paths';
-import { DefaultOrgProtected } from '~/components/guards/default-slug';
+
 import { theme } from 'antd';
 
 const routes = [

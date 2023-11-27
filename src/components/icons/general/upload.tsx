@@ -1,7 +1,7 @@
 import Icon from '@ant-design/icons';
 import type { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
-const AnalyticsSvg = () => (
+export const UploadSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -14,11 +14,11 @@ const AnalyticsSvg = () => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
+      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
     />
   </svg>
 );
 
-export const AnalyticsIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={AnalyticsSvg} {...props} />
+export const UploadIcon = (props: Partial<CustomIconComponentProps>) => (
+  <Icon component={UploadSvg} {...props} />
 );

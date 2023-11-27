@@ -1,7 +1,7 @@
 import Icon from '@ant-design/icons';
 import type { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
-const Svg = () => (
+export const GoogleSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 256 262"
@@ -28,5 +28,5 @@ const Svg = () => (
 );
 
 export const GoogleIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={Svg} {...props} />
+  <Icon component={GoogleSvg} {...props} />
 );

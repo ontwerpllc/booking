@@ -1,7 +1,7 @@
 import Icon from '@ant-design/icons';
 import { type CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
-const LightSvg = () => (
+export const LightSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -17,7 +17,7 @@ export const LightModeIcon = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={LightSvg} {...props} />
 );
 
-const DarkSvg = () => (
+export const DarkSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
