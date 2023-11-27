@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-export const BrandIcon = (props: SVGProps<SVGSVGElement>) => {
+export const BrandIcon = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       viewBox="0 0 1024 1024"

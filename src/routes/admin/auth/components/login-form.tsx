@@ -8,14 +8,13 @@ type FieldType = {
   password: string;
 };
 
-type Props = {
+export type LoginFormProps = {
   form?: FormInstance;
   onSubmit: SubmitEventHandler;
   isLoading?: boolean;
 };
 
-export const LoginForm = (props: Props) => {
-  const { onSubmit, form, isLoading } = props;
+export const LoginForm = ({ onSubmit, form, isLoading }: LoginFormProps) => {
   return (
     <Form form={form} onFinish={onSubmit} layout="vertical">
       <Form.Item<FieldType>

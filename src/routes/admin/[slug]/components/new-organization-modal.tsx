@@ -4,17 +4,17 @@ import { useMemo, useState } from 'react';
 import { PlanCards } from './plan-cards';
 import { NewOrganizationForm } from './new-organization-form';
 
-const { useForm } = Form;
-
-type Props = {
+export type NewOrganizationModalProps = {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const NewOrganizationModal = (props: Props) => {
-  const { setIsModalOpen, isModalOpen } = props;
+export const NewOrganizationModal = ({
+  setIsModalOpen,
+  isModalOpen,
+}: NewOrganizationModalProps) => {
   const [step, setStep] = useState(0);
-  const [form] = useForm();
+  const [form] = Form.useForm();
   const [plan, setPlan] = useState<string>();
 
   const onCancel = () => {

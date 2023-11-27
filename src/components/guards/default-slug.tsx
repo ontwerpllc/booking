@@ -5,12 +5,11 @@ import { useMemberships } from '~/api/hooks/user';
 import { useTypedSearchParams } from '~/hooks/useTypedSearchParams';
 import NotFound from '~/routes/not-found';
 
-type Props = {
+export type DefaultOrgProtectedProps = {
   children: React.ReactNode;
 };
 
-export const DefaultOrgProtected = (props: Props) => {
-  const { children } = props;
+export const DefaultOrgProtected = ({ children }: DefaultOrgProtectedProps) => {
   const location = useLocation();
   const params = useTypedSearchParams<'admin.dashboard'>();
   const memberships = useMemberships();

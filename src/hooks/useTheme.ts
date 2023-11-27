@@ -15,7 +15,7 @@ function determineTheme(theme: LocalStorageTheme) {
   return theme;
 }
 
-type LocalStorageTheme = 'light' | 'dark' | 'system';
+export type LocalStorageTheme = 'light' | 'dark' | 'system';
 
 export const useTheme = () => {
   const [localStorageTheme, setLocalStorageTheme] = useState<LocalStorageTheme>(

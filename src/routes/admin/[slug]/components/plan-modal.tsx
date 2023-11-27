@@ -4,13 +4,12 @@ import { useParams } from 'react-router-dom';
 import { PlanCards } from './plan-cards';
 import { getBusiness } from '~/api/functions/getBusiness';
 
-type Props = {
+export type PlanModalProps = {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const PlanModal = (props: Props) => {
-  const { setIsModalOpen, isModalOpen } = props;
+export const PlanModal = ({ setIsModalOpen, isModalOpen }: PlanModalProps) => {
   const { companyId } = useParams();
 
   const onCancel = () => {

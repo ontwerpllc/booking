@@ -13,14 +13,16 @@ type FieldType = {
   zip: string;
 };
 
-type Props = {
+export type NewOrganizationFormProps = {
   form?: FormInstance;
   onSubmit?: SubmitEventHandler;
   submitText?: string;
 };
 
-export const NewOrganizationForm = (props: Props) => {
-  const { onSubmit, form } = props;
+export const NewOrganizationForm = ({
+  onSubmit,
+  form,
+}: NewOrganizationFormProps) => {
   const formRef = useRef<FormInstance>(null);
 
   const onOrganizationNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

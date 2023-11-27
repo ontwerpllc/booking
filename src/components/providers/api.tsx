@@ -3,7 +3,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useMemo } from 'react';
 import { queryClient } from '~/api/query-client';
 
-type ApiProviderProps = {
+export type ApiProviderProps = {
   children: React.ReactNode;
 };
 

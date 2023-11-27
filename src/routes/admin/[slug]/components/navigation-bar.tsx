@@ -26,32 +26,11 @@ import { useTypedSearchParams } from '~/hooks/useTypedSearchParams';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-function getItem(
-  label: React.ReactNode,
-  key?: null | React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group',
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
-
-const getParentKeys = (path: string) => {
-  return path.split('/').splice(0, path.split('/').length - 1);
-};
-
-type Props = {
+export type NavigationBarProps = {
   onClosableAction?: () => void;
 };
 
-export const NavigationBar = (props: Props) => {
-  const { onClosableAction } = props;
+export const NavigationBar = ({ onClosableAction }: NavigationBarProps) => {
   const params = useTypedSearchParams<'admin.dashboard'>();
   const organization = useOrganization({ slug: params.get('org') });
   const memberships = useMemberships();
@@ -195,3 +174,23 @@ export const NavigationBar = (props: Props) => {
     </div>
   );
 };
+
+function getItem(
+  label: React.ReactNode,
+  key?: null | React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group',
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem;
+}
+
+function getParentKeys(path: string) {
+  return path.split('/').splice(0, path.split('/').length - 1);
+}

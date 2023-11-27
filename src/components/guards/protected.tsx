@@ -3,13 +3,12 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '~/api/hooks/auth';
 import { type Path } from '~/lib/paths';
 
-type Props = {
+export type AuthProtectedProps = {
   redirect: Path;
   children: React.ReactNode;
 };
 
-export const AuthProtected = (props: Props) => {
-  const { redirect, children } = props;
+export const AuthProtected = ({ redirect, children }: AuthProtectedProps) => {
   const auth = useAuth();
   if (auth.isLoading) {
     return (

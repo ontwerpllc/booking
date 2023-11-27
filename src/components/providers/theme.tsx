@@ -1,12 +1,11 @@
 import { ConfigProvider, theme } from 'antd';
 import { useTheme } from '~/hooks/useTheme';
 
-type Props = {
+export type ThemeProviderProps = {
   children: React.ReactNode;
 };
 
-export const ThemeProvider = (props: Props) => {
-  const { children } = props;
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const { theme: currentTheme } = useTheme();
   return (
     <ConfigProvider

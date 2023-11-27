@@ -5,8 +5,6 @@ import { GoogleIcon, AppleIcon } from '~/components/icons';
 import { useSignInWithOAuth, useSignUp } from '~/api/hooks/auth';
 import { PATH } from '~/lib/paths';
 
-const { Title, Link } = Typography;
-
 const AdminRegister = () => {
   const signUp = useSignUp({
     redirectTo: PATH.admin.dashboard.index,
@@ -20,9 +18,9 @@ const AdminRegister = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <BrandIcon className="mx-auto h-10 w-auto" />
 
-          <Title level={2} className="mt-10 text-center">
+          <Typography.Title level={2} className="mt-10 text-center">
             Create your account
-          </Title>
+          </Typography.Title>
         </div>
 
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -63,9 +61,9 @@ const AdminRegister = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already a member?{' '}
-            <Link href="login" className="font-semibold leading-6">
+            <Typography.Link href="login" className="font-semibold leading-6">
               Sign in here
-            </Link>
+            </Typography.Link>
           </p>
         </div>
       </div>

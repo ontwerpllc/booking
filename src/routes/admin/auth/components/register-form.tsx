@@ -14,87 +14,20 @@ type FieldType = {
   lastName: string;
 };
 
-type Props = {
+type Problem = { error: string; priority: number };
+
+export type RegisterFormProps = {
   form?: FormInstance;
   onSubmit: SubmitEventHandler;
   isLoading?: boolean;
 };
 
-type Problem = { error: string; priority: number };
-
-const { useToken } = theme;
-
-function determinePasswordStrength({ password }: { password: string }) {
-  let strength = 0;
-  const problems: Problem[] = [];
-  if (password.match(/[a-z]+/)) {
-    strength += 20;
-  } else {
-    problems.push({
-      error: 'Must contain at least one lowercase letter',
-      priority: 1,
-    });
-  }
-  if (password.match(/[A-Z]+/)) {
-    strength += 20;
-  } else {
-    problems.push({
-      error: 'Must contain at least one uppercase letter',
-      priority: 2,
-    });
-  }
-  if (password.match(/[0-9]+/)) {
-    strength += 20;
-  } else {
-    problems.push({
-      error: 'Must contain at least one number',
-      priority: 3,
-    });
-  }
-  if (password.match(/[$@#&!]+/)) {
-    strength += 20;
-  } else {
-    problems.push({
-      error: 'Must contain at least one special character',
-      priority: 4,
-    });
-  }
-  if (password.length > 8) {
-    strength += 20;
-  } else {
-    problems.push({
-      error: 'Must be at least 8 characters long',
-      priority: 5,
-    });
-  }
-  return { strength, problems };
-}
-
-function determinePasswordStrengthColor({
-  strength,
-  token,
-}: {
-  strength: number;
-  token: GlobalToken;
-}) {
-  let color = token.red;
-
-  if (strength >= 40 && strength < 60) {
-    color = token.orange;
-  }
-  if (strength >= 60 && strength < 100) {
-    color = token.yellow;
-  }
-  if (strength === 100) {
-    color = token.green;
-  }
-
-  return color;
-}
-
-export const RegisterForm = (props: Props) => {
-  const { onSubmit, form, isLoading } = props;
-  const { token } = useToken();
+export const RegisterForm = ({
+  onSubmit,
+  form,
+  isLoading,
+}: RegisterFormProps) => {
+  const { token } = theme.useToken();
   const [passwordStrengthColor, setPasswordStrengthColor] = useState<string>(
     token.red,
   );
@@ -215,3 +148,71 @@ export const RegisterForm = (props: Props) => {
     </Form>
   );
 };
+
+function determinePasswordStrength({ password }: { password: string }) {
+  let strength = 0;
+  const problems: Problem[] = [];
+  if (password.match(/[a-z]+/)) {
+    strength += 20;
+  } else {
+    problems.push({
+      error: 'Must contain at least one lowercase letter',
+      priority: 1,
+    });
+  }
+  if (password.match(/[A-Z]+/)) {
+    strength += 20;
+  } else {
+    problems.push({
+      error: 'Must contain at least one uppercase letter',
+      priority: 2,
+    });
+  }
+  if (password.match(/[0-9]+/)) {
+    strength += 20;
+  } else {
+    problems.push({
+      error: 'Must contain at least one number',
+      priority: 3,
+    });
+  }
+  if (password.match(/[$@#&!]+/)) {
+    strength += 20;
+  } else {
+    problems.push({
+      error: 'Must contain at least one special character',
+      priority: 4,
+    });
+  }
+  if (password.length > 8) {
+    strength += 20;
+  } else {
+    problems.push({
+      error: 'Must be at least 8 characters long',
+      priority: 5,
+    });
+  }
+  return { strength, problems };
+}
+
+function determinePasswordStrengthColor({
+  strength,
+  token,
+}: {
+  strength: number;
+  token: GlobalToken;
+}) {
+  let color = token.red;
+
+  if (strength >= 40 && strength < 60) {
+    color = token.orange;
+  }
+  if (strength >= 60 && strength < 100) {
+    color = token.yellow;
+  }
+  if (strength === 100) {
+    color = token.green;
+  }
+
+  return color;
+}

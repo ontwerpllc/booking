@@ -12,18 +12,18 @@ import { getPlans } from '~/api/functions/getPlans';
 import { CheckIcon } from '~/components/icons';
 import { cn } from '~/lib/utils';
 
-const { Text } = Typography;
-const { useToken } = theme;
-
-type Props = {
+export type PlanCardsProps = {
   currentPlan?: string;
   selectedPlan?: string;
   onPlanSelect: (key: string) => void;
 };
 
-export const PlanCards = (props: Props) => {
-  const { currentPlan, selectedPlan, onPlanSelect } = props;
-  const { token } = useToken();
+export const PlanCards = ({
+  currentPlan,
+  selectedPlan,
+  onPlanSelect,
+}: PlanCardsProps) => {
+  const { token } = theme.useToken();
 
   const plans = getPlans();
 
@@ -41,14 +41,14 @@ export const PlanCards = (props: Props) => {
             }}
           >
             <div className="flex justify-between items-center">
-              <Text
+              <Typography.Text
                 className={cn('font-semibold', {
                   ['text-2xl ']: plan.mostPopular,
                   ['text-xl']: !plan.mostPopular,
                 })}
               >
                 {plan.name}
-              </Text>
+              </Typography.Text>
               <div>
                 {plan.mostPopular ? (
                   <Tag bordered={false} color={token.colorPrimary}>
@@ -60,11 +60,13 @@ export const PlanCards = (props: Props) => {
               </div>
             </div>
             <div className="mt-2">
-              <Text>{plan.description}</Text>
+              <Typography.Text>{plan.description}</Typography.Text>
             </div>
             <div className="mt-4">
-              <Text className="text-4xl font-bold">${plan.price}</Text>
-              <Text>/month</Text>
+              <Typography.Text className="text-4xl font-bold">
+                ${plan.price}
+              </Typography.Text>
+              <Typography.Text>/month</Typography.Text>
             </div>
             <div className="mt-4">
               <List
